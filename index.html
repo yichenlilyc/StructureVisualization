@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
 
     <title>Hello!</title>
     
@@ -21,6 +21,9 @@
     <script src="js/gesture-handler.js"></script>-->
   </head>  
   <style>
+    body{
+      margin:0;
+    }
     .tabBox {
       position: absolute;
       padding: 1em;
@@ -42,18 +45,12 @@
       position: absolute;
       padding: 1em;
       color:red;
-      bottom: 0px;
-      height: 50px;
-      width: 50px;
-      overflow: hidden;
+      bottom: 100px;
+      height: 10%;
+      width: 100%;
+      
     }
-    #showMolId {
-      color: white;
-      position: absolute;
-      top: 0;
-      left: 0;
-    }
-
+    
     
   </style>
   <body>
@@ -97,7 +94,7 @@
 
       <a-entity camera></a-entity>
     </a-scene>
-    <div id="showMolId"></div>
+    <!--<div id="showMolId"></div>-->
     <div class="insideTab">
       From the RCSB PDB server
       PDBID:
