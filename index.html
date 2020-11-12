@@ -166,12 +166,12 @@
 
 
     function download(query) {
-  
+      test("query");
       data = {
         'molId': query
       };
       el.setAttribute('glmol', data);
-      test(query);
+      
       showMolId(el.getAttribute('glmol').molId);
     }
     function test(query){
