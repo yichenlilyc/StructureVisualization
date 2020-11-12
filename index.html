@@ -46,7 +46,7 @@
       position: absolute;
       padding: 1em;
       color:red;
-      bottom: 100px;
+      bottom: 500px;
       left:20px;
       height: 10%;
       width: 100%;
@@ -101,8 +101,6 @@
         scale="0.05 0.05 0.05" class="clickable" gesture-handler></a-entity>
         <a-entity glmol id="glmol2" id="browser-model" position="5 0 0"
         scale="0.05 0.05 0.05" class="clickable" gesture-handler></a-entity>
-        <a-entity glmol id="glmol3" id="browser-model" position="0 0 5"
-        scale="0.05 0.05 0.05" class="clickable" gesture-handler></a-entity>
       </a-marker>
 
       <a-entity camera></a-entity>
@@ -131,6 +129,78 @@
         <button onClick="loadFile()">
           Load from file
         </button>
+      <br />
+      Color by
+      <select id="glmol01_color">
+        <option selected="selected" value="chainbow">spectrum</option>
+        <option value="chain">chain</option>
+        <option value="ss">secondary structure</option>
+        <option value="b">B factor</option>
+        <option value="polarity">polar/nonpolar</option>
+      </select>
+      <br>
+      <input id="glmol01_showMainchain" type="checkbox" checked>
+      Main chain as
+      <select id="glmol01_mainchain">
+        <option selected="selected" value="thickRibbon">thick ribbon</option>
+        <option value="ribbon">thin ribbon(faster)</option>
+        <option value="strand">strand</option>
+        <option value="cylinderHelix">cylinder & plate</option>
+        <option value="chain">C alpha trace</option>
+        <option value="tube">B factor Tube</option>
+        <option value="bonds">bonds (everything)</option>
+      </select>
+      <br>
+      <input id="glmol01_showBases" type="checkbox" checked>
+      Nucleic acid bases as
+      <select id="glmol01_base">
+        <option value="nuclStick">sticks</option>
+        <option selected="selected" value="nuclLine">lines</option>
+        <option value="nuclPolygon">polygons</option>
+      </select>
+      <br>
+      <input id="glmol01_line" type="checkbox">
+      Side chains as lines
+      <br>
+      <input id="glmol01_doNotSmoothen" type="checkbox">
+      Don't smooth beta-sheets in ribbons
+      <br>
+      <input id="glmol01_showNonBonded" type="checkbox">
+      Non-bonded atoms (solvent/ions) as
+      <select id="glmol01_nb">
+        <option value="nb_sphere">spheres</option>
+        <option selected="selected" value="nb_cross">stars</option>
+      </select>
+      <br>
+      <input id="glmol01_showHetatms" type="checkbox" checked>
+      Small molecules(HETATMs) as
+      <select id="glmol01_hetatm">
+        <option value="stick">sticks</option>
+        <option value="ballAndStick">ball and stick</option>
+        <option value="ballAndStick2">ball and stick (multiple bond)</option>
+        <option selected="selected" value="sphere">spheres</option>
+        <option value="icosahedron">icosahedrons</option>
+        <option value="line">lines</option>
+      </select>
+      <br>
+      Multiple bond option is for SDF/MOL file ONLY.
+      <br>
+      <input id="glmol01_cell" type="checkbox">
+      Unit cell
+      <br>
+      <input id="glmol01_biomt" type="checkbox">
+      Biological assembly (the last one defined)
+      <br>
+      <input id="glmol01_packing" type="checkbox">
+      Crystal packing
+      <br>
+      <input id="glmol01_symopHetatms" type="checkbox">
+      Show HETATMs in symmetry mates (slower)
+      <br>
+      <br>
+      <button id="glmol01_reload">
+        Apply
+      </button>
     </div>
     <!--<div class="tabBox" id="glmol01_srcbox" style="left: 10%; z-index:0;">
       <span class="bottomTab">Load</span>
@@ -147,7 +217,7 @@
   <script>
     var el1 = document.querySelector('#glmol');
     var el2 = document.querySelector('#glmol2');
-    var el3 = document.querySelector('#glmol3');
+    
     //var el=document.createElement('a-entity');
     
     /*AFRAME.registerComponent('initialization', {
@@ -160,9 +230,9 @@
 
     //document.querySelector('a-scene').appendChild(el);
 
-    document.querySelector('a-scene').addEventListener('loaded', () => {
+    /*document.querySelector('a-scene').addEventListener('loaded', () => {
       showMolId(el3.getAttribute('glmol').molId);
-    });
+    });*/
 
     /*el.setAttribute('glmol', {
       primitive: 'box',
@@ -192,6 +262,28 @@
         download(mtype + ":" + $(this).val());
       }
     });*/
+    $('#glmol01_reload').click(function(ev) {
+    var idHeader = "#glmol01_";
+    data = {
+      'color': $(idHeader + 'color').val(),
+      'mainchain': $(idHeader + 'showMainchain').is(':checked') ? $(idHeader + 'mainchain').val() : 'none',
+      'base': $(idHeader + 'showBases').is(':checked') ? $(idHeader + 'base').val() : 'none',
+      'line': $(idHeader + 'line').is(':checked'),
+      'doNotSmoothen': $(idHeader + 'doNotSmoothen').is(':checked'),
+      'nb': $(idHeader + 'showNonBonded').is(':checked') ? $(idHeader + 'nb').val() : 'none',
+      'hetatmMode': $(idHeader + 'showHetatms').is(':checked') ? $(idHeader + 'hetatm').val() : 'none',
+      'cell': $(idHeader + 'cell').is(':checked'),
+      'biomt': $(idHeader + 'biomt').is(':checked'),
+      'packing': $(idHeader + 'packing').is(':checked'),
+      'symopHetatms': $(idHeader + 'symopHetatms').is(':checked')
+    };
+
+    for (i in data) {
+      var currentAttribute = data[i];
+      el1.setAttribute('glmol', i, currentAttribute);
+      el2.setAttribute('glmol', i, currentAttribute);
+    }
+  });
 
     function loadFile() {
       var file = $('#glmol01_file').get(0);
