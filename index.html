@@ -95,7 +95,7 @@
       
         <!--<a-box position="0 0.5 0" material="color: yellow;"></a-box>
         <a-box position="0 2.5 0" material="color: red;"></a-box>_-->
-        <a-entity glmol id="#glmol" id="browser-model" position="0 0 0"
+        <a-entity glmol id="glmol" id="browser-model" position="0 0 0"
         scale="0.05 0.05 0.05" class="clickable" gesture-handler></a-entity>
         <a-entity glmol id="#glmol" id="browser-model" position="5 0 0"
         scale="0.05 0.05 0.05" class="clickable" gesture-handler></a-entity>
@@ -170,8 +170,9 @@
       data = {
         'molId': query
       };
+      test("test2"+query);
       el.setAttribute('glmol', data);
-      
+      test("test3"+query);
       showMolId(el.getAttribute('glmol').molId);
     }
     function test(query){
