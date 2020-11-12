@@ -1,0 +1,10 @@
+{
+    "configurations": [
+        {
+            "type": "pwa-chrome",
+            "name": "https://www.yichenliclaire.com/StructureVisualization/",
+            "request": "launch",
+            "url": "https://www.yichenliclaire.com/StructureVisualization/"
+        }
+    ]
+}
