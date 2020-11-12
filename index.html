@@ -51,6 +51,7 @@
       gesture-detector
       id="scene"
     >
+
       <a-marker 
         preset="hiro"
         raycaster="objects: .clickable"
@@ -58,14 +59,10 @@
         cursor="fuse: false; rayOrigin: mouse;"
         id="markerA"
       >
-      <a-assets>
-        <a-asset-item glmol id="glmol">
-
-        </a-asset-item>
-      </a-assets>
+      
         <!--<a-box position="0 0.5 0" material="color: yellow;"></a-box>
         <a-box position="0 2.5 0" material="color: red;"></a-box>_-->
-        <a-entity glmol="#glmol" id="browser-model" position="0 0 0"
+        <a-entity glmol id="#glmol" id="browser-model" position="0 0 0"
         scale="0.05 0.05 0.05" class="clickable" gesture-handler></a-entity>
       </a-marker>
       <a-entity camera></a-entity>
@@ -74,8 +71,6 @@
     <div class="tabBox" id="glmol01_srcbox" style="left: 10%; z-index:0;">
       <span class="bottomTab">Load</span>
       <div class="insideTab">
-        You can load PDB, SDF/MOL(MDL not SYBYL) or XYZ files
-        <br><br><br>
         From the RCSB PDB server
         PDBID:
         <input class="txtbox" id="glmol01_pdb" value="2POR" size=4>
