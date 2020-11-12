@@ -50,6 +50,13 @@
       width: 100%;
       
     }
+
+    #showMolId {
+    color: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
     
     
   </style>
@@ -95,11 +102,13 @@
       <a-entity camera></a-entity>
     </a-scene>
     <div id="showMolId"></div>
+
     <div class="insideTab">
       From the RCSB PDB server
       PDBID:
-      <input class="txtbox" id="glmol01_pdb" value="4HHB" size=6>
-      <button class="buttons" onClick="download('pdb:' + $('#glmol01_pdb').val())">
+      <input class="txtbox" id="glmol01_pdb" value="4HHB2" size=6>
+      <!--<button class="buttons" onClick="download('pdb:' + $('#glmol01_pdb').val())">-->
+      <button class="buttons" onClick="download('pdb:4HHB')"></button>
         Download
       </button>
     </div>
