@@ -110,8 +110,8 @@
       From the RCSB PDB server
       PDBID:
       <p id="test">Click</p>
-      <input class="txtbox" id="glmol01_pdb" value="2POR" size=6>
-      <button class="buttons" onClick="downloadOne('pdb:2POR')">
+      <input class="txtbox" id="glmol01_pdb" value="4HHB" size=6>
+      <button class="buttons" onClick="downloadOne('pdb:4HHB')">
         Download
       </button>
       <br />
@@ -175,9 +175,9 @@
         'molId': query
       };
       test("test2"+query);
-      el.setAttribute('glmol', data);
+      el1.setAttribute('glmol', data);
       test("test3"+query);
-      showMolId(el.getAttribute('glmol').molId);
+      showMolId(el1.getAttribute('glmol').molId);
     }
 
     function downloadTwo(query) {
