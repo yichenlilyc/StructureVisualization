@@ -57,9 +57,14 @@
         cursor="fuse: false; rayOrigin: mouse;"
         id="markerA"
       >
+      <a-assets>
+        <a-asset-item glmol id="glmol">
+
+        </a-asset-item>
+      </a-assets>
         <!--<a-box position="0 0.5 0" material="color: yellow;"></a-box>
         <a-box position="0 2.5 0" material="color: red;"></a-box>_-->
-        <a-entity glmol id="glmol" position="0 0 0"
+        <a-entity glmol="#glmol" id="browser-model" position="0 0 0"
         scale="0.05 0.05 0.05" class="clickable" gesture-handler></a-entity>
       </a-marker>
       <a-entity camera></a-entity>
