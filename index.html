@@ -110,12 +110,12 @@
       From the RCSB PDB server
       PDBID:
       <p id="test">Click</p>
-      <input class="txtbox" id="glmol01_pdb" value="4HHB500" size=6>
-      <button class="buttons" onClick="downloadOne('pdb:4HHB')">
+      <input class="txtbox" id="glmol01_pdb" value="2POR" size=6>
+      <button class="buttons" onClick="downloadOne('pdb:2POR')">
         Download
       </button>
       <br />
-      <p id="test">Click</p>
+      <p id="test2">Click</p>
       <input class="txtbox" id="glmol01_pdb_2" value="3GD8" size=6>
       <!--<button class="buttons" onClick="download('pdb:' + $('#glmol01_pdb').val())">-->
       <button class="buttons" onClick="downloadTwo('pdb:' + $('#glmol01_pdb_2').val())">
@@ -157,12 +157,12 @@
     });*/
 
 
-    $('.txtbox').keypress(function(event) {
+    /*$('.txtbox').keypress(function(event) {
       if (event.originalEvent.key == "Enter") {
         mtype = $(this).attr("id").split("_")[1]
         download(mtype + ":" + $(this).val());
       }
-    });
+    });*/
     
     function showMolId(molId) {
       $('#showMolId').html(molId);
@@ -181,17 +181,20 @@
     }
 
     function downloadTwo(query) {
-      test(query);
+      testTwo(query);
       data = {
         'molId': query
       };
-      test("test2"+query);
+      testTwo("test2"+query);
       el2.setAttribute('glmol', data);
-      test("test3"+query);
+      testTwo("test3"+query);
       showMolId(el2.getAttribute('glmol').molId);
     }
     function test(query){
       document.getElementById("test").innerHTML=query;
+    }
+    function testTwo(query){
+      document.getElementById("test2").innerHTML=query;
     }
   </script>
 </html>
