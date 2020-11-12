@@ -97,7 +97,7 @@
         <a-box position="0 2.5 0" material="color: red;"></a-box>_-->
         <a-entity glmol id="#glmol" id="browser-model" position="0 0 0"
         scale="0.05 0.05 0.05" class="clickable" gesture-handler></a-entity>
-        <a-entity glmol id="#glmol" id="browser-model" position="0 10 0"
+        <a-entity glmol id="#glmol" id="browser-model" position="5 0 0"
         scale="0.05 0.05 0.05" class="clickable" gesture-handler></a-entity>
       </a-marker>
 
@@ -110,7 +110,7 @@
       From the RCSB PDB server
       PDBID:
       <p id="test">Click</p>
-      <input class="txtbox" id="glmol01_pdb" value="4HHB2" size=6>
+      <input class="txtbox" id="glmol01_pdb" value="4HHB500" size=6>
       <!--<button class="buttons" onClick="download('pdb:' + $('#glmol01_pdb').val())">-->
       <button class="buttons" onClick="download('pdb:4HHB')">
         Download
@@ -166,7 +166,7 @@
 
 
     function download(query) {
-      test("query");
+      test(query);
       data = {
         'molId': query
       };
