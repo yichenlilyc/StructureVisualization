@@ -97,6 +97,8 @@
         <a-box position="0 2.5 0" material="color: red;"></a-box>_-->
         <a-entity glmol id="#glmol" id="browser-model" position="0 0 0"
         scale="0.05 0.05 0.05" class="clickable" gesture-handler></a-entity>
+        <a-entity glmol id="#glmol" id="browser-model" position="0 1 0"
+        scale="0.05 0.05 0.05" class="clickable" gesture-handler></a-entity>
       </a-marker>
 
       <a-entity camera></a-entity>
@@ -166,10 +168,11 @@
         'molId': query
       };
       el.setAttribute('glmol', data);
+      test(query);
       showMolId(el.getAttribute('glmol').molId);
     }
-    function test(){
-      document.getElementById("test").innerHTML="Success!";
+    function test(query){
+      document.getElementById("test").innerHTML=query;
     }
   </script>
 </html>
