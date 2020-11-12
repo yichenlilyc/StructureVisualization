@@ -184,7 +184,7 @@
       var reader = new FileReader();
       reader.onload = function() {
         $('#glmol01_src').val(reader.result);
-        glmol01.loadMolecule();
+        glmol.loadMolecule();
         $('#loading').hide();
       };
       reader.readAsText(file[0]);
