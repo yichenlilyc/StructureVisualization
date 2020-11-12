@@ -101,14 +101,15 @@
 
       <a-entity camera></a-entity>
     </a-scene>
+    <p id="test">Click</p>
     <div id="showMolId"></div>
 
     <div class="insideTab">
       From the RCSB PDB server
       PDBID:
-      <input class="txtbox" id="glmol01_pdb" value="4HHB2" size=6>
+      <input class="txtbox" id="glmol01_pdb" value="4HHB" size=6>
       <!--<button class="buttons" onClick="download('pdb:' + $('#glmol01_pdb').val())">-->
-      <button class="buttons" onClick="download('pdb:4HHB')">
+      <button class="buttons" onClick="test()">
         Download
       </button>
     </div>
@@ -165,6 +166,9 @@
       };
       el.setAttribute('glmol', data);
       showMolId(el.getAttribute('glmol').molId);
+    }
+    function test(){
+      document.getElementById("test").innerHTML="Success!";
     }
   </script>
 </html>
