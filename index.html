@@ -8,23 +8,99 @@
     <title>Hello!</title>
     
     <!-- import the webpage's stylesheet -->
-    <link rel="stylesheet" href="/style.css">
+    <!--<link rel="stylesheet" href="/style.css"> -->
     
     <!-- import the webpage's javascript file -->
-    <script src="https://unpkg.com/three@<VERSION>/build/three.module.js"></script>
-    <!--<script src="js/PDBLoader.js"></script>-->
+    <script src="https://unpkg.com/three@0.122.0/build/three.js"></script>
+    <script src="js/PDBLoader.js"></script>
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-glmol-component/dist/aframe-glmol-component.min.js"></script>
     <script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
     <script src="https://google-ar.github.io/three.ar.js/dist/three.ar.js"></script>
     <script src="https://rawgit.com/jeromeetienne/AR.js/master/aframe/build/aframe-ar.min.js"></script>
   </head>  
   <body>
-    
+    <!--<script type="module">
+      import * as THREE from 'https://unpkg.com/three@0.122.0/build/three.js';
+      import { PDBLoader } from 'js/PDBLoader.js';
+      let camera, scene, renderer;
+      const loader = new PDBLoader();
+      const offset = new THREE.Vector3();
+      
+      init()
+
+      function init(){
+        scene = new THREE.Scene();
+        camera = new THREE.Camera();
+        scene.add(camera);
+
+      }
+
+    </script>-->
     <a-scene embedded arjs>
       <a-marker preset="hiro">
-        <a-box position="0 0.5 0" material="color: yellow;"></a-box>
-        <a-box position="0 2.5 0" material="color: red;"></a-box>
+        <!--<a-box position="0 0.5 0" material="color: yellow;"></a-box>
+        <a-box position="0 2.5 0" material="color: red;"></a-box>_-->
+        <a-entity glmol id="glmol"></a-entity>
       </a-marker>
       <a-entity camera></a-entity>
     </a-scene>
+
+    <div class="tabBox" id="glmol01_srcbox" style="left: 10%; z-index:0;">
+      <span class="bottomTab">Load</span>
+      <div class="insideTab">
+        You can load PDB, SDF/MOL(MDL not SYBYL) or XYZ files
+        <br><br><br>
+        From the RCSB PDB server
+        PDBID:
+        <input class="txtbox" id="glmol01_pdb" value="2POR" size=4>
+        <button onClick="download('pdb:' + $('#glmol01_pdb').val())">
+          Download
+        </button>
+      </div>
+    </div>
   </body>
+  <script>
+    var el = document.querySelector('#glmol');
+    document.querySelector('a-scene').addEventListener('loaded', () => {
+      showMolId(el.getAttribute('glmol').molId);
+    });
+    $('.bottomTab').click(function(evt) {
+      var height = 60;
+      var parentId = $(evt.currentTarget).parent().parent()[0].id
+      isBig = $(evt.currentTarget).parent().height() > height;
+      $(`#${parentId} .tabBox`).animate({
+        bottom: '0px',
+        height: `${height}px`
+      })
+      if (!isBig) {
+        $(evt.currentTarget).parent().animate({
+          bottom: '0px',
+          height: '400px'
+        });
+      }
+    });
+
+
+    $('.txtbox').keypress(function(event) {
+      if (event.originalEvent.key == "Enter") {
+        mtype = $(this).attr("id").split("_")[1]
+        download(mtype + ":" + $(this).val());
+      }
+    });
+    
+    function showMolId(molId) {
+      $('#showMolId').html(molId);
+    }
+
+
+    function download(query) {
+  
+      data = {
+        'molId': query
+      };
+      el.setAttribute('glmol', data);
+      showMolId(el.getAttribute('glmol').molId);
+    }
+  </script>
 </html>
