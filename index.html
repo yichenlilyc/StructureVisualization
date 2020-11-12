@@ -19,6 +19,50 @@
     <script src="https://google-ar.github.io/three.ar.js/dist/three.ar.js"></script>
     <script src="https://rawgit.com/jeromeetienne/AR.js/master/aframe/build/aframe-ar.min.js"></script>
   </head>  
+  <style type="text/css">
+    
+    .buttons {
+      padding: 0.25em;
+      border-radius: 4px;
+      border: none;
+      background: white;
+      color: black;
+      width: 4em;
+      height: 2em;
+    }
+    .tabBox {
+    position: absolute;
+    padding: 0px;
+    color: white;
+    bottom: 0px;
+    height: 60px;
+    width: 60%;
+    overflow: hidden;
+  }
+
+  .bottomTab {
+    background-color: black;
+    border: 1px solid white;
+    width: 50px;
+    color: white;
+    position: absolute;
+
+    top: 10px;
+    padding: 10px 10px 30px 10px;
+    
+  }
+
+  .insideTab {
+    border: 1px solid white;
+    /* border-top:5px solid white; */
+    overflow: hidden;
+    padding: 1%;
+    width: 80%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    margin: 70px 200px 0 0;
+  }
+  </style>
   <body>
     <!--<script type="module">
       import * as THREE from 'https://unpkg.com/three@0.122.0/build/three.js';
@@ -41,7 +85,8 @@
       <a-marker preset="hiro">
         <!--<a-box position="0 0.5 0" material="color: yellow;"></a-box>
         <a-box position="0 2.5 0" material="color: red;"></a-box>_-->
-        <a-entity glmol id="glmol"></a-entity>
+        <a-entity glmol id="glmol" position="0 0 0"
+        scale="0.05 0.05 0.05"></a-entity>
       </a-marker>
       <a-entity camera></a-entity>
     </a-scene>
@@ -54,7 +99,7 @@
         From the RCSB PDB server
         PDBID:
         <input class="txtbox" id="glmol01_pdb" value="2POR" size=4>
-        <button onClick="download('pdb:' + $('#glmol01_pdb').val())">
+        <button class="buttons" onClick="download('pdb:' + $('#glmol01_pdb').val())">
           Download
         </button>
       </div>
