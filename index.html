@@ -47,6 +47,7 @@
       padding: 1em;
       color:red;
       bottom: 100px;
+      left:20px;
       height: 10%;
       width: 100%;
       
@@ -112,7 +113,7 @@
       PDBID:
       <p id="test">Click</p>
       <input class="txtbox" id="glmol01_pdb" value="4HHB" size=6>
-      <button class="buttons" onClick="downloadOne('pdb:4HHB')">
+      <button class="buttons" onClick="downloadOne('pdb:' + $('#glmol01_pdb').val())">
         Download
       </button>
       <br />
@@ -122,6 +123,12 @@
       <button class="buttons" onClick="downloadTwo('pdb:' + $('#glmol01_pdb_2').val())">
         Download
       </button>
+      <br />
+      From your local disk:
+        <input id="glmol01_file" type="file" size=1>
+        <button onClick="loadFile()">
+          Load from file
+        </button>
     </div>
     <!--<div class="tabBox" id="glmol01_srcbox" style="left: 10%; z-index:0;">
       <span class="bottomTab">Load</span>
@@ -164,6 +171,24 @@
         download(mtype + ":" + $(this).val());
       }
     });*/
+
+    function loadFile() {
+      var file = $('#glmol01_file').get(0);
+      if (file)
+        file = file.files;
+      if (!file || !window.FileReader || !file[0]) {
+        alert("No file is selected. Or File API is not supported in your browser. Please try Firefox or Chrome.");
+        return;
+      }
+      $('#loading').show();
+      var reader = new FileReader();
+      reader.onload = function() {
+        $('#glmol01_src').val(reader.result);
+        glmol01.loadMolecule();
+        $('#loading').hide();
+      };
+      reader.readAsText(file[0]);
+    }
     
     function showMolId(molId) {
       $('#showMolId').html(molId);
