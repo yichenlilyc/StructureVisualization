@@ -24,14 +24,14 @@
     .tabBox {
       position: absolute;
       padding: 0px;
-      color: white;
+      color: red;
       bottom: 0px;
       height: 10px;
       width: 5px;
       overflow: hidden;
     }
     .bottomTab{
-      background-color: black;
+      background-color: red;
       border: 1px solid white;
       width: 5px;
       color: white;
@@ -39,14 +39,13 @@
       top:5px;
     }
     .insideTab {
-    border: 1px solid white;
-    /* border-top:5px solid white; */
-    overflow: hidden;
-    padding: 1%;
-    width: 80%; 
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.85);
-    margin: 70px 200px 0 0;
+      position: absolute;
+      padding: 0px;
+      color:red;
+      bottom: 0px;
+      height: 10px;
+      width: 5px;
+      overflow: hidden;
     }
     #showMolId {
       color: white;
@@ -99,7 +98,15 @@
       <a-entity camera></a-entity>
     </a-scene>
     <div id="showMolId"></div>
-    <div class="tabBox" id="glmol01_srcbox" style="left: 10%; z-index:0;">
+    <div class="insideTab">
+      From the RCSB PDB server
+      PDBID:
+      <input class="txtbox" id="glmol01_pdb" value="2POR" size=4>
+      <button class="buttons" onClick="download('pdb:' + $('#glmol01_pdb').val())">
+        Download
+      </button>
+    </div>
+    <!--<div class="tabBox" id="glmol01_srcbox" style="left: 10%; z-index:0;">
       <span class="bottomTab">Load</span>
       <div class="insideTab">
         From the RCSB PDB server
@@ -109,14 +116,14 @@
           Download
         </button>
       </div>
-    </div>
+    </div>-->
   </body>
   <script>
     var el = document.querySelector('#glmol');
     document.querySelector('a-scene').addEventListener('loaded', () => {
       showMolId(el.getAttribute('glmol').molId);
     });
-    $('.bottomTab').click(function(evt) {
+    /*$('.bottomTab').click(function(evt) {
       var height = 60;
       var parentId = $(evt.currentTarget).parent().parent()[0].id
       isBig = $(evt.currentTarget).parent().height() > height;
@@ -130,7 +137,7 @@
           height: '400px'
         });
       }
-    });
+    });*/
 
 
     $('.txtbox').keypress(function(event) {
