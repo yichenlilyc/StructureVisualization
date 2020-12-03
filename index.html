@@ -47,19 +47,16 @@
       top:0px;
       background-color: blue;
       border: 1px solid white;
+      text-align: center;
       width: 100px;
-      height: 40px;
+      height: 30px;
       color: white;
     }
     .insideTab {
-      position: absolute;
       background-color: black;
-      padding: 1em;
-      color:green;
-      top:10px;
-      height: 100px;
-      width: 300px;
-      
+      padding: 50px;
+      display:none;
+      color:blue;   
     }
     .embededScene{
       position: absolute;
@@ -310,9 +307,7 @@
   });
 
   function controlTabBox(){
-    $('#TabContent').animate({
-      height:'toggle'
-    });
+    $('#TabContent').slideToggle("slow");
   }
 
     function loadFile() {
