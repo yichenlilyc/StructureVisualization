@@ -47,17 +47,17 @@
       top:0px;
       background-color: blue;
       border: 1px solid white;
-      width: 110px;
+      width: 100px;
       color: white;
     }
     .insideTab {
       position: absolute;
       background-color: black;
       padding: 1em;
-      color:orange;
+      color:yellow;
       top:10px;
-      height: 0px;
-      width: 100%;
+      height: 100px;
+      width: 100px;
       
     }
     .embededScene{
@@ -126,7 +126,7 @@
       </a-scene>
     </div>
 
-    <div class="topTab" onclick="showTabBox()">
+    <div class="topTab" onclick="controlTabBox()">
       Load Object
     </div> 
 
@@ -308,9 +308,9 @@
     }
   });
 
-  function showTabBox(){
+  function controlTabBox(){
     $('#TabContent').animate({
-      height:'150px'
+      height:'toggle'
     });
   }
 
