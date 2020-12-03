@@ -42,6 +42,12 @@
       position: absolute;
       top:5px;
     }
+    .topTab{
+      background-color: black;
+      border: 1px solid white;
+      width: 5px;
+      color: white;
+    }
     .insideTab {
       position: absolute;
       background-color: black;
@@ -114,8 +120,10 @@
         <a-entity camera></a-entity>
       </a-scene>
     </div>
-
-    <div class="insideTab">
+    <div class="topTab" onclick="showTabBox()">
+      Load Object
+    </div> 
+    <div class="insideTab" id="TabContent">
       From the RCSB PDB server
       PDBID:
       <p id="test">Click</p>
@@ -292,6 +300,12 @@
       //el2.setAttribute('glmol', i, currentAttribute);
     }
   });
+
+  function showTabBox(){
+    $('#TabContent').animate({
+      height:'150px'
+    });
+  }
 
     function loadFile() {
       var file = $('#glmol01_file').get(0);
