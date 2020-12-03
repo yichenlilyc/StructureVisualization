@@ -43,16 +43,17 @@
       top:5px;
     }
     .topTab{
+      position: absolute;
       background-color: black;
       border: 1px solid white;
-      width: 5px;
+      width: 50px;
       color: white;
     }
     .insideTab {
       position: absolute;
       background-color: black;
       padding: 1em;
-      color:yellow;
+      color:purple;
       height: 40%;
       width: 100%;
       
@@ -122,9 +123,11 @@
         <a-entity camera></a-entity>
       </a-scene>
     </div>
+
     <div class="topTab" onclick="showTabBox()">
       Load Object
     </div> 
+
     <div class="insideTab" id="TabContent">
       From the RCSB PDB server
       PDBID:
