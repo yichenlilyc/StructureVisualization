@@ -50,7 +50,7 @@
       text-align: center;
       width: 100px;
       height: 30px;
-      color: white;
+      color: red;
     }
     .insideTab {
       background-color: black;
@@ -127,15 +127,15 @@
       </a-scene>
     </div>
 
-    <div class="topTab" onclick="controlTabBox()">
+    <div class="topTab" id="LoadObjectTab">
       Load Object
     </div> 
 
-    <div class="topTab" style="left:300px" onclick="controlTabBox()">
+    <div class="topTab" id="SettingTab" style="left:300px">
       Settings
     </div>
 
-    <div class="insideTab" id="TabContent">
+    <div class="insideTab" id="LoadObject">
       From the RCSB PDB server
       PDBID:
       <p id="test">Click</p>
@@ -156,7 +156,9 @@
         <button onClick="loadFile()">
           Load from file
         </button>
-      <br />
+    </div>
+
+    <div class="insideTab" id="Setting">
       Color by
       <select id="glmol01_color">
         <option selected="selected" value="chainbow">spectrum</option>
@@ -291,31 +293,35 @@
       }
     });*/
     $('#glmol01_reload').click(function(ev) {
-    var idHeader = "#glmol01_";
-    data = {
-      'color': $(idHeader + 'color').val(),
-      'mainchain': $(idHeader + 'showMainchain').is(':checked') ? $(idHeader + 'mainchain').val() : 'none',
-      'base': $(idHeader + 'showBases').is(':checked') ? $(idHeader + 'base').val() : 'none',
-      'line': $(idHeader + 'line').is(':checked'),
-      'doNotSmoothen': $(idHeader + 'doNotSmoothen').is(':checked'),
-      'nb': $(idHeader + 'showNonBonded').is(':checked') ? $(idHeader + 'nb').val() : 'none',
-      'hetatmMode': $(idHeader + 'showHetatms').is(':checked') ? $(idHeader + 'hetatm').val() : 'none',
-      'cell': $(idHeader + 'cell').is(':checked'),
-      'biomt': $(idHeader + 'biomt').is(':checked'),
-      'packing': $(idHeader + 'packing').is(':checked'),
-      'symopHetatms': $(idHeader + 'symopHetatms').is(':checked')
-    };
+      var idHeader = "#glmol01_";
+      data = {
+        'color': $(idHeader + 'color').val(),
+        'mainchain': $(idHeader + 'showMainchain').is(':checked') ? $(idHeader + 'mainchain').val() : 'none',
+        'base': $(idHeader + 'showBases').is(':checked') ? $(idHeader + 'base').val() : 'none',
+        'line': $(idHeader + 'line').is(':checked'),
+        'doNotSmoothen': $(idHeader + 'doNotSmoothen').is(':checked'),
+        'nb': $(idHeader + 'showNonBonded').is(':checked') ? $(idHeader + 'nb').val() : 'none',
+        'hetatmMode': $(idHeader + 'showHetatms').is(':checked') ? $(idHeader + 'hetatm').val() : 'none',
+        'cell': $(idHeader + 'cell').is(':checked'),
+        'biomt': $(idHeader + 'biomt').is(':checked'),
+        'packing': $(idHeader + 'packing').is(':checked'),
+        'symopHetatms': $(idHeader + 'symopHetatms').is(':checked')
+      };
 
-    for (i in data) {
-      var currentAttribute = data[i];
-      el1.setAttribute('glmol', i, currentAttribute);
-      //el2.setAttribute('glmol', i, currentAttribute);
-    }
-  });
+      for (i in data) {
+        var currentAttribute = data[i];
+        el1.setAttribute('glmol', i, currentAttribute);
+        //el2.setAttribute('glmol', i, currentAttribute);
+      }
+    });
 
-  function controlTabBox(){
-    $('#TabContent').slideToggle("slow");
-  }
+    $('#LoadObjectTab').click(function(){
+      $('#LoadObject').slideToggle("slow");
+    });
+
+    $('#SettingTab').click(function(){
+      $('#Setting').slideToggle("slow");
+    });
 
     function loadFile() {
       var file = $('#glmol01_file').get(0);
