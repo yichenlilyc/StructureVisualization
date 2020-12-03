@@ -42,17 +42,14 @@
       position: absolute;
       top:5px;
     }
-    .topTab{
-      background-color: white;
-    }
     .insideTab {
+      position: absolute;
       background-color: black;
       border: 1px solid white;
       padding: 1em;
       color:white;
       height: 30%;
-      width: 30%;
-      top: 10px;
+      width: 100%;
       
     }
 
@@ -83,6 +80,8 @@
       }
 
     </script>-->
+
+    
     <a-scene embeded arjs
       renderer="logarithmicDepthBuffer: true;"
       vr-mode-ui="enabled: false"
@@ -108,104 +107,7 @@
 
       <a-entity camera></a-entity>
     </a-scene>
-
-    <div class="insideTab">
-      From the RCSB PDB server
-      PDBID:
-      <p id="test">Click</p>
-      <input class="txtbox" id="glmol01_pdb" value="2POR" size=6>
-      <button class="buttons" onClick="downloadOne('pdb:' + $('#glmol01_pdb').val())">
-        Download
-      </button>
-      <br />
-      <p id="test2">Click</p>
-      <input class="txtbox" id="glmol01_pdb_2" value="2POR" size=6>
-      <!--<button class="buttons" onClick="download('pdb:' + $('#glmol01_pdb').val())">-->
-      <button class="buttons" onClick="downloadTwo('pdb:' + $('#glmol01_pdb_2').val())">
-        Download
-      </button>
-      <br />
-      From your local disk:
-        <input id="glmol01_file" type="file" size=1>
-        <button onClick="loadFile()">
-          Load from file
-        </button>
-      <br />
-      Color by
-      <select id="glmol01_color">
-        <option selected="selected" value="chainbow">spectrum</option>
-        <option value="chain">chain</option>
-        <option value="ss">secondary structure</option>
-        <option value="b">B factor</option>
-        <option value="polarity">polar/nonpolar</option>
-      </select>
-      <br>
-      <input id="glmol01_showMainchain" type="checkbox" checked>
-      Main chain as
-      <select id="glmol01_mainchain">
-        <option selected="selected" value="thickRibbon">thick ribbon</option>
-        <option value="ribbon">thin ribbon(faster)</option>
-        <option value="strand">strand</option>
-        <option value="cylinderHelix">cylinder & plate</option>
-        <option value="chain">C alpha trace</option>
-        <option value="tube">B factor Tube</option>
-        <option value="bonds">bonds (everything)</option>
-      </select>
-      <br>
-      <input id="glmol01_showBases" type="checkbox" checked>
-      Nucleic acid bases as
-      <select id="glmol01_base">
-        <option value="nuclStick">sticks</option>
-        <option selected="selected" value="nuclLine">lines</option>
-        <option value="nuclPolygon">polygons</option>
-      </select>
-      <br>
-      <input id="glmol01_line" type="checkbox">
-      Side chains as lines
-      <br>
-      <input id="glmol01_doNotSmoothen" type="checkbox">
-      Don't smooth beta-sheets in ribbons
-      <br>
-      <input id="glmol01_showNonBonded" type="checkbox">
-      Non-bonded atoms (solvent/ions) as
-      <select id="glmol01_nb">
-        <option value="nb_sphere">spheres</option>
-        <option selected="selected" value="nb_cross">stars</option>
-      </select>
-      <br>
-      <input id="glmol01_showHetatms" type="checkbox" checked>
-      Small molecules(HETATMs) as
-      <select id="glmol01_hetatm">
-        <option value="stick">sticks</option>
-        <option value="ballAndStick">ball and stick</option>
-        <option value="ballAndStick2">ball and stick (multiple bond)</option>
-        <option selected="selected" value="sphere">spheres</option>
-        <option value="icosahedron">icosahedrons</option>
-        <option value="line">lines</option>
-      </select>
-      <br>
-      Multiple bond option is for SDF/MOL file ONLY.
-      <br>
-      <input id="glmol01_cell" type="checkbox">
-      Unit cell
-      <br>
-      <input id="glmol01_biomt" type="checkbox">
-      Biological assembly (the last one defined)
-      <br>
-      <input id="glmol01_packing" type="checkbox">
-      Crystal packing
-      <br>
-      <input id="glmol01_symopHetatms" type="checkbox">
-      Show HETATMs in symmetry mates (slower)
-      <br>
-      <br>
-      <button id="glmol01_reload">
-        Apply
-      </button>
-    </div>
-
     
-    <div id="showMolId"></div>
 
     <!--<div class="tabBox" id="glmol01_srcbox" style="left: 10%; z-index:0;">
       <span class="bottomTab">Load</span>
