@@ -124,7 +124,7 @@
           <a-box position="0 2.5 0" material="color: red;"></a-box>_-->
           <a-entity glmol id="glmol" id="browser-model" position="0 0 0"
           scale="0.05 0.05 0.05" class="clickable" gesture-handler></a-entity>
-          <a-entity glmol id="glmol2" id="browser-model" position="3 0 0"
+          <a-entity glmol id="glmol2" id="browser-model" position="5 0 0"
           scale="0.05 0.05 0.05" class="clickable" gesture-handler></a-entity>
         </a-marker>
 
@@ -133,7 +133,7 @@
     </div>
 
     <div class="topTab" id="LoadObjectTab" style="left: 15%;">
-      Load Object
+      Objects
     </div> 
 
     <div class="topTab" id="SettingTab" style="right: 15%;">
@@ -253,50 +253,14 @@
     var el1 = document.querySelector('#glmol');
     var el2 = document.querySelector('#glmol2');
     
-    //var el=document.createElement('a-entity');
-    
-    /*AFRAME.registerComponent('initialization', {
-      init: function () {
-        // This will be called after the entity has properly attached and loaded.
-        console.log('I am ready!');
-      }
-    });*/
-    //el.setAttribute('initialization','');
+    $('#LoadObjectTab').click(function(){
+      $('#LoadObject').slideToggle("slow");
+    });
 
-    //document.querySelector('a-scene').appendChild(el);
+    $('#SettingTab').click(function(){
+      $('#Setting').slideToggle("slow");
+    });
 
-    /*document.querySelector('a-scene').addEventListener('loaded', () => {
-      showMolId(el3.getAttribute('glmol').molId);
-    });*/
-
-    /*el.setAttribute('glmol', {
-      primitive: 'box',
-      height: 3,
-      width: 1
-    });*/
-    /*$('.bottomTab').click(function(evt) {
-      var height = 60;
-      var parentId = $(evt.currentTarget).parent().parent()[0].id
-      isBig = $(evt.currentTarget).parent().height() > height;
-      $(`#${parentId} .tabBox`).animate({
-        bottom: '0px',
-        height: `${height}px`
-      })
-      if (!isBig) {
-        $(evt.currentTarget).parent().animate({
-          bottom: '0px',
-          height: '400px'
-        });
-      }
-    });*/
-
-
-    /*$('.txtbox').keypress(function(event) {
-      if (event.originalEvent.key == "Enter") {
-        mtype = $(this).attr("id").split("_")[1]
-        download(mtype + ":" + $(this).val());
-      }
-    });*/
     $('#glmol01_reload').click(function(ev) {
       var idHeader = "#glmol01_";
       data = {
@@ -320,13 +284,7 @@
       }
     });
 
-    $('#LoadObjectTab').click(function(){
-      $('#LoadObject').slideToggle("slow");
-    });
 
-    $('#SettingTab').click(function(){
-      $('#Setting').slideToggle("slow");
-    });
 
     function loadFile() {
       var file = $('#glmol01_file').get(0);
@@ -340,7 +298,7 @@
       var reader = new FileReader();
       reader.onload = function() {
         $('#glmol01_src').val(reader.result);
-        glmol.loadMolecule();
+        el1.loadMolecule();
         $('#loading').hide();
       };
       reader.readAsText(file[0]);
