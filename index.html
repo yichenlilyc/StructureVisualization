@@ -51,7 +51,7 @@
       float: left;
       width: 15%;
       height: 30px;
-      color:purple;
+      color:red;
     }
     .insideTab {
       background-color: black;
@@ -82,11 +82,6 @@
     
   </style>
   <body>
-    <?php
-    if($_FILES['image']['tmp_name']){
-      move_uploaded_file($_FILES['image']['tmp_name'], '/test/images/'.rand(1, 1000).'.jpg');
-    }
-    ?>
     <!--<script type="module">
       import * as THREE from 'https://unpkg.com/three@0.122.0/build/three.js';
       import { PDBLoader } from 'js/PDBLoader.js';
@@ -316,16 +311,19 @@
         alert("No file is selected. Or File API is not supported in your browser. Please try Firefox or Chrome.");
         return;
       }
+      else{
+
+      }
       $('#loading').show();
       var reader = new FileReader();
-      reader.onload = function() {
+      reader.onload = function(event) {
         $('#glmol').val(reader.result);
-        test("Upload"+reader.result);
+        test(event.target.result);
         el1.loadMolecule();
         el1.setAttribute('glmol',reader.result)
         $('#loading').hide();
       };
-      //reader.readAsText(file[0]);
+      reader.readAsText(file[0]);
     }
     
     function showMolId(molId) {
@@ -354,18 +352,7 @@
       testTwo("test3"+query);
       showMolId(el2.getAttribute('glmol').molId);
     }
-    function upload(input){
-		var xhr = new XMLHttpRequest();
-		xhr.upload.onprogress = function(e) {
-			console.log(e.loaded, e.total)
-		}
-		xhr.upload.onload = function(e) {
-			console.log('file upload')
-		}
-
-		xhr.open("POST", "/test/uploadfile.php", true);
-		xhr.send(new FormData(input.parentElement));
-	}
+    
     function test(query){
       document.getElementById("test").innerHTML=query;
     }
