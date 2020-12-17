@@ -51,7 +51,7 @@
       float: left;
       width: 15%;
       height: 30px;
-      color: yellow;
+      color:green;
     }
     .insideTab {
       background-color: black;
@@ -311,6 +311,7 @@
       reader.onload = function() {
         $('#glmol01_src').val(reader.result);
         el1.loadMolecule();
+        el1.setAttribute('glmol',reader.result)
         $('#loading').hide();
       };
       //reader.readAsText(file[0]);
