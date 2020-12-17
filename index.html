@@ -51,7 +51,7 @@
       float: left;
       width: 15%;
       height: 30px;
-      color:yellow;
+      color:greenyellow;
     }
     .insideTab {
       background-color: black;
@@ -315,15 +315,16 @@
       var reader = new FileReader();
       reader.fileName = file[0].name;
       var filename;
-      $('#glmol01_file').val(file[0].name);
+      filename = file[0].name;
+      var name = filename.substr(0,4);
       reader.onload = function(event) {
         $('#glmol').val(reader.result);
         
-        filename=reader.result;
-        test(event.target.fileName);
+        //filename=reader.result;
+        test(name);
         //el1.loadMoleculeStr(event.target.result);
         data={
-          'molId':'pdb:'+event.target.fileName
+          'molId':'pdb:'+name
         }
         el1.setAttribute('glmol',data)
         $('#loading').hide();
