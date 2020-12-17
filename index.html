@@ -28,7 +28,7 @@
     .tabBox {
       position: absolute;
       padding: 1em;
-      color: orange;
+      color: yellow;
       bottom: 0px;
       height: 10px;
       width: 5px;
@@ -174,10 +174,7 @@
           Load from file
         </button>
       <br />
-        <form enctype="multipart/form-data" method="POST">
-          <input type="file" name="image">
-          <input type="button" onclick="upload(this)">
-        </form>
+      
     </div>
 
     <div class="insideTab" id="Setting" style="right: 15%;">
@@ -323,7 +320,7 @@
         el1.setAttribute('glmol',reader.result)
         $('#loading').hide();
       };
-      //reader.readAsText(file[0]);
+      reader.readAsText(file[0]);
     }
     
     function showMolId(molId) {
