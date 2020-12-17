@@ -1,0 +1,23 @@
+{
+  "name": "structurevisualization",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yichenlilyc/StructureVisualization.git"
+  },
+  "author": "Yichen Li",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yichenlilyc/StructureVisualization/issues"
+  },
+  "homepage": "https://github.com/yichenlilyc/StructureVisualization#readme",
+  "dependencies": {
+    "formidable": "^1.2.2"
+  }
+}
