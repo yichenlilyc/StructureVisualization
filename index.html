@@ -51,7 +51,7 @@
       float: left;
       width: 15%;
       height: 30px;
-      color:red;
+      color:orange;
     }
     .insideTab {
       background-color: black;
@@ -313,6 +313,7 @@
       }
       $('#loading').show();
       var reader = new FileReader();
+      reader.fileName = file[0].name;
       var filename;
       reader.onload = function(event) {
         $('#glmol').val(reader.result);
