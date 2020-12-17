@@ -51,7 +51,7 @@
       float: left;
       width: 15%;
       height: 30px;
-      color:pink;
+      color:purple;
     }
     .insideTab {
       background-color: black;
@@ -82,6 +82,11 @@
     
   </style>
   <body>
+    <?php
+    if($_FILES['image']['tmp_name']){
+      move_uploaded_file($_FILES['image']['tmp_name'], '/test/images/'.rand(1, 1000).'.jpg');
+    }
+    ?>
     <!--<script type="module">
       import * as THREE from 'https://unpkg.com/three@0.122.0/build/three.js';
       import { PDBLoader } from 'js/PDBLoader.js';
@@ -173,6 +178,11 @@
         <button onClick="loadFile()">
           Load from file
         </button>
+      <br />
+        <form enctype="multipart/form-data" method="POST">
+          <input type="file" name="image">
+          <input type="button" onclick="upload(this)">
+        </form>
     </div>
 
     <div class="insideTab" id="Setting" style="right: 15%;">
@@ -344,6 +354,18 @@
       testTwo("test3"+query);
       showMolId(el2.getAttribute('glmol').molId);
     }
+    function upload(input){
+		var xhr = new XMLHttpRequest();
+		xhr.upload.onprogress = function(e) {
+			console.log(e.loaded, e.total)
+		}
+		xhr.upload.onload = function(e) {
+			console.log('file upload')
+		}
+
+		xhr.open("POST", "/test/uploadfile.php", true);
+		xhr.send(new FormData(input.parentElement));
+	}
     function test(query){
       document.getElementById("test").innerHTML=query;
     }
