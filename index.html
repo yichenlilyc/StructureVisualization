@@ -316,7 +316,11 @@
       reader.onload = function(event) {
         $('#glmol').val(reader.result);
         //test(event.target.result);
-        el1.loadMoleculeStr(event.target.result);
+        //el1.loadMoleculeStr(event.target.result);
+        data={
+          'molId':'pdb:1bl8'
+        }
+        el1.setAttribute('glmol',data)
         $('#loading').hide();
       };
       reader.readAsText(file[0]);
