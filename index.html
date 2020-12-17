@@ -51,7 +51,7 @@
       float: left;
       width: 15%;
       height: 30px;
-      color:green;
+      color:blue;
     }
     .insideTab {
       background-color: black;
@@ -316,7 +316,7 @@
       reader.fileName = file.name;
       reader.onload = function(event) {
         $('#glmol').val(reader.result);
-        //test(event.target.result);
+        test(event.target.fileName);
         //el1.loadMoleculeStr(event.target.result);
         data={
           'molId':'pdb'+event.target.fileName
