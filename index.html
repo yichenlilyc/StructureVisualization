@@ -13,7 +13,7 @@
     <!-- import the webpage's javascript file -->
     <!--<script src="https://unpkg.com/three@0.122.0/build/three.js"></script>-->
     <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
-    <script src="https://unpkg.com/aframe-glmol-component/dist/aframe-glmol-component.min.js"></script>
+    <script src="js/aframe-glmol-component.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <!--<script src="https://google-ar.github.io/three.ar.js/dist/three.ar.js"></script>-->
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
@@ -326,9 +326,14 @@
         //test(name);
         //el1.loadMoleculeStr(event.target.result);
         data={
-          'molId':'pdb:'+name
+          'molId':"lot:",
+          'pdb':$('#glmol01_src').val()
         }
-        el1.setAttribute('glmol',data)
+        for (i in data) {
+          var currentAttribute = data[i];
+          el1.setAttribute('glmol', i, currentAttribute);
+          //el2.setAttribute('glmol', i, currentAttribute);
+        }
         $('#loading').hide();
       };
       reader.readAsText(file[0]);
