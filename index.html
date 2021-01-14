@@ -176,6 +176,9 @@
       <br />
       <textarea wrap="off" id="glmol01_src" style="width: 100%; height: 8em; overflow: scroll;"></textarea>
       <br />
+      <button onClick="showModel()">
+        show
+      </button>
 
     </div>
 
@@ -325,20 +328,24 @@
         //filename=reader.result;
         //test(name);
         //el1.loadMoleculeStr(event.target.result);
-        data={
-          'molId':"lot:",
-          'pdb':$('#glmol01_src').val()
-        }
-        for (i in data) {
-          var currentAttribute = data[i];
-          el1.setAttribute('glmol', i, currentAttribute);
-          //el2.setAttribute('glmol', i, currentAttribute);
-        }
+        
         $('#loading').hide();
       };
       reader.readAsText(file[0]);
     }
     
+    function showModel(){
+      data={
+          'molId':"lot:",
+          'pdb':$('#glmol01_src').val()
+      }
+      for (i in data) {
+        var currentAttribute = data[i];
+        el1.setAttribute('glmol', i, currentAttribute);
+        //el2.setAttribute('glmol', i, currentAttribute);
+      }
+    }
+
     function showMolId(molId) {
      // $('#showMolId').html(molId);
     }
