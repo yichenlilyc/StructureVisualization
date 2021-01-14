@@ -1966,6 +1966,8 @@ var GLmol = (function() {
             // FIXME: 5' end problem!
           } else if (mainchainMode == 'bonds') {
             this.drawBondsAsLine(asu, all, this.lineWidth);
+          } else if(mainchainMode == 'spacefill') {
+            this.drawAtomsAsSphere(asu,all);
           }
         }
 
