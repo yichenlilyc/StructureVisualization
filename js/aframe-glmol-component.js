@@ -2034,6 +2034,8 @@ var GLmol = (function() {
             this.drawBondsAsLine(asu, all, this.lineWidth);
           } else if(mainchainMode == 'spacefill') {
             this.drawAtomsAsSphere(asu,all,this.sphereRadius);
+          }else if(mainchainMode == 'ballAndStick'){
+            this.drawBondsAsStick(asu, all, this.cylinderRadius / 2.0, this.cylinderRadius, true, true, 0.3);
           }
         }
 
