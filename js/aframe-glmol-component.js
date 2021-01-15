@@ -1184,6 +1184,72 @@ var GLmol = (function() {
 
         };
 
+        GLmol.prototype.drawSphere = function(group, from, to, radius, color, cap) {
+
+
+
+            if (!from || !to)
+              return;
+  
+            var midpoint = new TV3().addVectors(from, to).multiplyScalar(0.5);
+            var color = new TCo(color);
+  
+            if (!this.cylinderGeometry) {
+              this.cylinderGeometry = new THREE.CylinderGeometry(.1, .1, 1, this.cylinderQuality, 1, !cap);
+              this.cylinderGeometry.faceUvs = [];
+              this.faceVertexUvs = [];
+            }
+            var cylinderMaterial = new THREE.MeshLambertMaterial({
+              color: color.getHex()
+            });
+            var cylinder = new THREE.Mesh(this.cylinderGeometry, cylinderMaterial);
+  
+            cylinder.position.set(midpoint.x, midpoint.y, midpoint.z);
+            cylinder.lookAt(from);
+            //
+            cylinder.updateMatrix();
+            cylinder.matrixAutoUpdate = false;
+  
+            cylinder.matrix.multiply(new THREE.Matrix4().makeScale(radius, radius, from.distanceTo(to)).makeRotationX(Math.PI / 2));
+  
+            group.add(cylinder);
+  
+          };
+
+        GLmol.prototype.drawHelixAsSphere = function(group, atomlist, radius) {
+            var start = null;
+            var currentChain, currentResi;
+  
+            var others = [],
+              beta = [];
+  
+            for (var i in atomlist) {
+              var atom = this.atoms[atomlist[i]];
+              if (atom == undefined || atom.hetflag)
+                continue;
+              if ((atom.ss != 'h' && atom.ss != 's') || atom.ssend || atom.ssbegin)
+                others.push(atom.serial);
+              if (atom.ss == 's')
+                beta.push(atom.serial);
+              if (atom.atom != 'CA')
+                continue;
+  
+              if (atom.ss == 'h' && atom.ssend) {
+                if (start != null)
+                  this.drawCylinder(group, new TV3(start.x, start.y, start.z), new TV3(atom.x, atom.y, atom.z), radius, atom.color, true);
+                start = null;
+              }
+              currentChain = atom.chain;
+              currentResi = atom.resi;
+              if (start == null && atom.ss == 'h' && atom.ssbegin)
+                start = atom;
+            }
+            if (start != null)
+              this.drawCylinder(group, new TV3(start.x, start.y, start.z), new TV3(atom.x, atom.y, atom.z), radius, atom.color);
+            this.drawMainchainTube(group, others, "CA", 0.3);
+            this.drawStrand(group, beta, undefined, undefined, true, 0, this.helixSheetWidth, false, this.thickness * 2);
+          };
+
         // FIXME: transition!
         GLmol.prototype.drawHelixAsCylinder = function(group, atomlist, radius) {
           var start = null;
@@ -1967,7 +2033,7 @@ var GLmol = (function() {
           } else if (mainchainMode == 'bonds') {
             this.drawBondsAsLine(asu, all, this.lineWidth);
           } else if(mainchainMode == 'spacefill') {
-            this.drawAtomsAsSphere(asu,all);
+            this.drawAtomsAsSphere(asu,all,this.sphereRadius);
           }
         }
 
