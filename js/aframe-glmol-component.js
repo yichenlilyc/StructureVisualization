@@ -2149,6 +2149,7 @@ AFRAME.registerComponent('glmol', {
     width: {type: 'number', default: 1},
     height: {type: 'number', default: 1},
     depth: {type: 'number', default: 1},
+    scale:{type:'number',default:1},
     color: {type: 'color', default: '#AAA'},
     molId: {type: 'string', default: 'pdb:2POR'},
     pdb:{type:'string',default:' '},
@@ -2189,7 +2190,7 @@ AFRAME.registerComponent('glmol', {
   this.glmol.returnModelGroup().then(
   (modelGroup)=>{
     this.el.setObject3D('mesh', modelGroup);
-    this.el.setAttribute('scale', `${1/this.glmol.largestSideLength} ${1/this.glmol.largestSideLength} ${1/this.glmol.largestSideLength}`);
+    //this.el.setAttribute('scale', `${1/this.glmol.largestSideLength} ${1/this.glmol.largestSideLength} ${1/this.glmol.largestSideLength}`);
 
   })
   },
