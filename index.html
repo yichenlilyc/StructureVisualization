@@ -20,12 +20,12 @@
         emitevents="true"
         cursor="fuse: false; rayOrigin: mouse;"
         id="markerA">
-            <a-entity id="box" touch-handler geometry="primitive: box" material="color: blue"></a-entity>
+            <a-entity id="box" class="clickable" touch-handler geometry="primitive: box" material="color: blue"></a-entity>
 
         </a-marker>
 
         <!-- use this <a-entity camera> to support multiple-markers, otherwise use <a-marker-camera> instead of </a-marker> -->
-        <a-entity camera cursor="rayOrigin:mouse">
+        <a-entity camera>
 
         </a-entity>
         </a-scene>
