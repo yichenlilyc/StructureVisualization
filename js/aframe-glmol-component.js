@@ -179,7 +179,7 @@ var GLmol = (function() {
           this.lineWidth = 1.5 * this.aaScale;
           this.curveWidth = 3 * this.aaScale;
           this.defaultColor = 0xCCCCCC;
-          this.sphereQuality = 16;
+          this.sphereQuality = 10;
           //16;
           this.cylinderQuality = 16;
           //8;
@@ -546,7 +546,7 @@ var GLmol = (function() {
         };
 
         GLmol.prototype.drawAtomsAsSphere = function(group, atomlist, defaultRadius, forceDefault, scale) {
-          var sphereGeometry = new THREE.SphereGeometry(1, this.sphereQuality, this.sphereQuality);
+          //var sphereGeometry = new THREE.SphereGeometry(1, this.sphereQuality, this.sphereQuality);
           // r, seg, ring
           for (var i = 0; i < atomlist.length; i++) {
             var atom = this.atoms[atomlist[i]];
@@ -2037,6 +2037,65 @@ var GLmol = (function() {
             this.drawSymmetryMatesWithTranslation2(this.modelGroup, this.protein.symMat);
           }
         }
+
+        GLmol.prototype.getRange = function(x,y){
+            var range = [];
+            
+        }
+
+        GLmol.prototype.drawDetails = function(detailMode,x,y) {
+            if (detailMode) {
+              
+            }
+          }
+
+          GLmol.prototype.getAtomsWithin = function(atomlist, extent) {
+            var ret = [];
+  
+            for (var i in atomlist) {
+              var atom = this.atoms[atomlist[i]];
+              if (atom == undefined)
+                continue;
+  
+              if (atom.x < extent[0][0] || atom.x > extent[1][0])
+                continue;
+              if (atom.y < extent[0][1] || atom.y > extent[1][1])
+                continue;
+              if (atom.z < extent[0][2] || atom.z > extent[1][2])
+                continue;
+              ret.push(atom.serial);
+            }
+            return ret;
+          };
+  
+          GLmol.prototype.getExtent = function(atomlist) {
+            var xmin = ymin = zmin = 9999;
+            var xmax = ymax = zmax = -9999;
+            var xsum = ysum = zsum = cnt = 0;
+  
+            for (var i in atomlist) {
+              var atom = this.atoms[atomlist[i]];
+              if (atom == undefined)
+                continue;
+              cnt++;
+              xsum += atom.x;
+              ysum += atom.y;
+              zsum += atom.z;
+  
+              xmin = (xmin < atom.x) ? xmin : atom.x;
+              ymin = (ymin < atom.y) ? ymin : atom.y;
+              zmin = (zmin < atom.z) ? zmin : atom.z;
+              xmax = (xmax > atom.x) ? xmax : atom.x;
+              ymax = (ymax > atom.y) ? ymax : atom.y;
+              zmax = (zmax > atom.z) ? zmax : atom.z;
+            }
+            return [
+              [xmin, ymin, zmin],
+              [xmax, ymax, zmax],
+              [xsum / cnt, ysum / cnt, zsum / cnt]
+            ];
+          };
+
         //GLMol.prototype.drawsymopHetatms = function () {
         //
         //      }

@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Hello!</title>
+    
+    <!-- import the webpage's stylesheet -->
+    <!--<link rel="stylesheet" href="/style.css"> -->
+    
+    <!-- import the webpage's javascript file -->
+    <!--<script src="https://unpkg.com/three@0.122.0/build/three.js"></script>-->
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <script src="js/aframe-glmol-component.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <!--<script src="https://google-ar.github.io/three.ar.js/dist/three.ar.js"></script>-->
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    <script src="https://raw.githack.com/fcor/arjs-gestures/master/dist/gestures.js"></script>
+   <!-- <script src="js/gesture-detector.js"></script>
+    <script src="js/gesture-handler.js"></script>-->
+  </head>  
+  <style>
+    body{
+      margin:0;
+    }
+    .tabBox {
+      position: absolute;
+      padding: 1em;
+      color: green;
+      bottom: 0px;
+      height: 10px;
+      width: 5px;
+      overflow: hidden;
+    }
+    .bottomTab{
+      background-color: red;
+      border: 1px solid white;
+      width: 5px;
+      color: white;
+      position: absolute;
+      top:5px;
+    }
+    .topTab{
+      position:absolute;
+      top:0px;
+      background-color: black;
+      border: 1px solid white;
+      text-align: center;
+      float: left;
+      width: 15%;
+      height: 30px;
+      color:red;
+    }
+    .insideTab {
+      background-color: black;
+      position:absolute;
+      float: left;
+      top: 30px;
+      padding: 50px;
+      display:none;
+      color:white;   
+      width: auto;
+    }
+    .embededScene{
+      top: 100px;
+      overflow:scroll;
+    }
+    .embeded{
+      position: absolute;
+      top:100px;
+    }
+
+    #showMolId {
+    color: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+    
+    
+  </style>
+  <body>
+    <!--<script type="module">
+      import * as THREE from 'https://unpkg.com/three@0.122.0/build/three.js';
+      import { PDBLoader } from 'js/PDBLoader.js';
+      let camera, scene, renderer;
+      const loader = new PDBLoader();
+      const offset = new THREE.Vector3();
+      
+      init()
+
+      function init(){
+        scene = new THREE.Scene();
+        camera = new THREE.Camera();
+        scene.add(camera);
+
+      }
+
+    </script>-->
+    
+    <!--<div id="showMolId"></div>-->
+
+
+
+    <div class="embededScene">
+      <a-scene embeded arjs
+        renderer="logarithmicDepthBuffer: true;"
+        vr-mode-ui="enabled: false"
+        gesture-detector
+        id="scene"
+      >
+
+        <a-marker 
+          preset="hiro"
+          raycaster="objects: .clickable"
+          emitevents="true"
+          cursor="fuse: false; rayOrigin: mouse;"
+          id="markerA"
+        >
+        
+          <!--<a-box position="0 0.5 0" material="color: yellow;"></a-box>
+          <a-box position="0 2.5 0" material="color: red;"></a-box>_-->
+          <a-entity glmol id="glmol" id="browser-model" position="0 0 0"
+          scale="0.05 0.05 0.05" class="clickable" gesture-handler></a-entity>
+        </a-marker>
+
+        <a-marker 
+        preset="kanji"
+        raycaster="objects: .clickable"
+        emitevents="true"
+        cursor="fuse: false; rayOrigin: mouse;"
+        id="markerB"
+      >
+      
+        <!--<a-box position="0 0.5 0" material="color: yellow;"></a-box>
+        <a-box position="0 2.5 0" material="color: red;"></a-box>_-->
+        <a-entity glmol id="glmol2" id="browser-model" position="0 0 0"
+        scale="0.05 0.05 0.05" class="clickable" gesture-handler></a-entity>
+      </a-marker>
+
+        <a-entity camera></a-entity>
+      </a-scene>
+    </div>
+
+    <div class="topTab" id="LoadObjectTab" style="left: 15%;">
+      Objects
+    </div> 
+
+    <div class="topTab" id="SettingTab" style="right: 15%;">
+      Settings
+    </div>
+
+    <div class="insideTab" id="LoadObject" style="left: 15%;">
+      From the RCSB PDB server
+      PDBID:
+      <p id="test">Click</p>
+      <input class="txtbox" id="glmol01_pdb" value="2POR" size=6>
+      <button class="buttons" onClick="downloadOne('pdb:' + $('#glmol01_pdb').val())">
+        Download
+      </button>
+      <br />
+      <p id="test2">Click</p>
+      <input class="txtbox" id="glmol01_pdb_2" value="2POR" size=6>
+      <!--<button class="buttons" onClick="download('pdb:' + $('#glmol01_pdb').val())">-->
+      <button class="buttons" onClick="downloadTwo('pdb:' + $('#glmol01_pdb_2').val())">
+        Download
+      </button>
+      <br />
+      From your local disk:
+        <input id="glmol01_file" type="file" size=1>
+        <button onClick="loadFile()">
+          Load from file
+        </button>
+      <br />
+      <textarea wrap="off" id="glmol01_src" style="width: 100%; height: 8em; overflow: scroll;"></textarea>
+      <br />
+      <button onClick="showModel()">
+        show
+      </button>
+
+    </div>
+
+    <div class="insideTab" id="Setting" style="right: 15%;">
+      Color by
+      <select id="glmol01_color">
+        <option selected="selected" value="chainbow">spectrum</option>
+        <option value="chain">chain</option>
+        <option value="ss">secondary structure</option>
+        <option value="b">B factor</option>
+        <option value="polarity">polar/nonpolar</option>
+      </select>
+      <br>
+      <input id="glmol01_showMainchain" type="checkbox" checked>
+      Main chain as
+      <select id="glmol01_mainchain">
+        <option selected="selected" value="thickRibbon">thick ribbon</option>
+        <option value="ribbon">thin ribbon(faster)</option>
+        <option value="strand">strand</option>
+        <option value="cylinderHelix">cylinder & plate</option>
+        <option value="chain">C alpha trace</option>
+        <option value="tube">B factor Tube</option>
+        <option value="bonds">bonds (everything)</option>
+        <option value="spacefill">space fill</option>
+        <option value="ballAndStick">ball and stick</option>
+      </select>
+      <br>
+      <input id="glmol01_showBases" type="checkbox" checked>
+      Nucleic acid bases as
+      <select id="glmol01_base">
+        <option value="nuclStick">sticks</option>
+        <option selected="selected" value="nuclLine">lines</option>
+        <option value="nuclPolygon">polygons</option>
+      </select>
+      <br>
+      <input id="glmol01_line" type="checkbox">
+      Side chains as lines
+      <br>
+      <input id="glmol01_doNotSmoothen" type="checkbox">
+      Don't smooth beta-sheets in ribbons
+      <br>
+      <input id="glmol01_showNonBonded" type="checkbox">
+      Non-bonded atoms (solvent/ions) as
+      <select id="glmol01_nb">
+        <option value="nb_sphere">spheres</option>
+        <option selected="selected" value="nb_cross">stars</option>
+      </select>
+      <br>
+      <input id="glmol01_showHetatms" type="checkbox" checked>
+      Small molecules(HETATMs) as
+      <select id="glmol01_hetatm">
+        <option value="stick">sticks</option>
+        <option value="ballAndStick">ball and stick</option>
+        <option value="ballAndStick2">ball and stick (multiple bond)</option>
+        <option selected="selected" value="sphere">spheres</option>
+        <option value="icosahedron">icosahedrons</option>
+        <option value="line">lines</option>
+      </select>
+      <br>
+      Multiple bond option is for SDF/MOL file ONLY.
+      <br>
+      <input id="glmol01_cell" type="checkbox">
+      Unit cell
+      <br>
+      <input id="glmol01_biomt" type="checkbox">
+      Biological assembly (the last one defined)
+      <br>
+      <input id="glmol01_packing" type="checkbox">
+      Crystal packing
+      <br>
+      <input id="glmol01_symopHetatms" type="checkbox">
+      Show HETATMs in symmetry mates (slower)
+      <br>
+      <br>
+      <button id="glmol01_reload">
+        Apply
+      </button>
+    </div>
+
+    <!--<div class="tabBox" id="glmol01_srcbox" style="left: 10%; z-index:0;">
+      <span class="bottomTab">Load</span>
+      <div class="insideTab">
+        From the RCSB PDB server
+        PDBID:
+        <input class="txtbox" id="glmol01_pdb" value="2POR" size=4>
+        <button class="buttons" onClick="download('pdb:' + $('#glmol01_pdb').val())">
+          Download
+        </button>
+      </div>
+    </div>-->
+  </body>
+  <script>
+    var el1 = document.querySelector('#glmol');
+    var el2 = document.querySelector('#glmol2');
+    
+    $('#LoadObjectTab').click(function(){
+      $('#LoadObject').slideToggle("slow");
+    });
+
+    $('#SettingTab').click(function(){
+      $('#Setting').slideToggle("slow");
+    });
+
+    $('#glmol01_reload').click(function(ev) {
+      var idHeader = "#glmol01_";
+      data = {
+        'color': $(idHeader + 'color').val(),
+        'mainchain': $(idHeader + 'showMainchain').is(':checked') ? $(idHeader + 'mainchain').val() : 'none',
+        'base': $(idHeader + 'showBases').is(':checked') ? $(idHeader + 'base').val() : 'none',
+        'line': $(idHeader + 'line').is(':checked'),
+        'doNotSmoothen': $(idHeader + 'doNotSmoothen').is(':checked'),
+        'nb': $(idHeader + 'showNonBonded').is(':checked') ? $(idHeader + 'nb').val() : 'none',
+        'hetatmMode': $(idHeader + 'showHetatms').is(':checked') ? $(idHeader + 'hetatm').val() : 'none',
+        'cell': $(idHeader + 'cell').is(':checked'),
+        'biomt': $(idHeader + 'biomt').is(':checked'),
+        'packing': $(idHeader + 'packing').is(':checked'),
+        'symopHetatms': $(idHeader + 'symopHetatms').is(':checked')
+      };
+
+      for (i in data) {
+        var currentAttribute = data[i];
+        el1.setAttribute('glmol', i, currentAttribute);
+        //el2.setAttribute('glmol', i, currentAttribute);
+      }
+    });
+
+
+
+    function loadFile() {
+      var file = $('#glmol01_file').get(0);
+      if (file)
+        file = file.files;
+      if (!file || !window.FileReader || !file[0]) {
+        alert("No file is selected. Or File API is not supported in your browser. Please try Firefox or Chrome.");
+        return;
+      }
+      else{
+
+      }
+      $('#loading').show();
+      var reader = new FileReader();
+      reader.fileName = file[0].name;
+      var filename;
+      filename = file[0].name;
+      var name = filename.substr(0,4);
+      reader.onload = function(event) {
+        $('#glmol01_src').val(reader.result);
+        
+        //filename=reader.result;
+        //test(name);
+        //el1.loadMoleculeStr(event.target.result);
+        
+        $('#loading').hide();
+      };
+      reader.readAsText(file[0]);
+    }
+    
+    function showModel(){
+      data={
+          'molId':"lot:",
+          'pdb':$('#glmol01_src').val()
+      }
+      for (i in data) {
+        var currentAttribute = data[i];
+        el1.setAttribute('glmol', i, currentAttribute);
+        //el2.setAttribute('glmol', i, currentAttribute);
+      }
+    }
+
+    function showMolId(molId) {
+     // $('#showMolId').html(molId);
+    }
+
+
+    function downloadOne(query) {
+      test(query);
+      data = {
+        'molId': query
+      };
+      test("test2"+query);
+      el1.setAttribute('glmol', data);
+      test("test3"+query);
+      showMolId(el1.getAttribute('glmol').molId);
+    }
+
+    function downloadTwo(query) {
+      testTwo(query);
+      data = {
+        'molId': query
+      };
+      testTwo("test2"+query);
+      el2.setAttribute('glmol', data);
+      testTwo("test3"+query);
+      showMolId(el2.getAttribute('glmol').molId);
+    }
+    
+    function test(query){
+      document.getElementById("test").innerHTML=query;
+    }
+    function testTwo(query){
+      document.getElementById("test2").innerHTML=query;
+    }
+  </script>
+</html>

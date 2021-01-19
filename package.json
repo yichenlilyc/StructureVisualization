@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/yichenlilyc/StructureVisualization#readme",
   "dependencies": {
+    "aframe": "^1.1.0",
     "formidable": "^1.2.2",
     "koa": "^2.0.0",
     "ngl": "^0.10.4"
