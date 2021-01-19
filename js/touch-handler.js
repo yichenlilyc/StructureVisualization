@@ -1,12 +1,11 @@
-// Component to change to a sequential color on click.
 AFRAME.registerComponent('touch-handler', {
-    init: function () {
-      var lastIndex = -1;
-      var COLORS = ['red', 'green', 'blue'];
-      this.el.addEventListener('click', function (evt) {
-        lastIndex = (lastIndex + 1) % COLORS.length;
-        this.setAttribute('material', 'color', COLORS[lastIndex]);
-        console.log('I was clicked at: ', evt.detail.intersection.point);
-      });
-    }
-  });
+
+    init: function() {
+        const animatedMarker = document.querySelector("#animated-marker");
+        const aEntity = document.querySelector("#thebox");
+        console.log("start touch");
+        // every click, we make our model grow in size :)
+        animatedMarker.addEventListener('click', function(ev, target){
+            console.log(ev.detail.intersection.point);
+        });
+}});
