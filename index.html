@@ -6,29 +6,39 @@
     <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
     <script src="https://rawgit.com/jeromeetienne/AR.js/master/aframe/build/aframe-ar.min.js"></script>
     <script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
+    <script src="https://rawgit.com/mayognaise/aframe-mouse-cursor-component/master/dist/aframe-mouse-cursor-component.min.js"></script>
     <script src="js/touch-handler.js"></script>
+    <script src="js/test.js"></script>
     
-    <!-- import events.js script -->
-    <script src="https://rawgit.com/nicolocarpignoli/nicolocarpignoli.github.io/master/ar-click-events/events.js"></script>
     
     <body style='margin : 0px; overflow: hidden;'>
         <!-- we add detectionMode and matrixCodeType to tell AR.js to recognize barcode markers -->
-        <a-scene embedded arjs='sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
+        <a-scene embeded touch-handler
+                  arjs='sourceType: webcam;'
+                  raycaster="objects: .clickable"
+                  emitevents="true"
+                  cursor="fuse:false rayOrigin: mouse;">
+            <a-marker preset="hiro"
+                      
+                      id="animated-marker">
 
-        <a-marker preset="hiro"
-        touch-handler 
-        raycaster="objects: .clickable"
-        emitevents="true"
-        cursor="fuse: false; rayOrigin: mouse;"
-        id="animated-marker">
-            <a-entity id="thebox" class="clickable" geometry="primitive: box" material="color: blue"></a-entity>
-
+            <a-entity  id="thebox" class="clickable" geometry="primitive: box" material="color: blue"></a-entity>
+            
         </a-marker>
 
+        
         <!-- use this <a-entity camera> to support multiple-markers, otherwise use <a-marker-camera> instead of </a-marker> -->
-        <a-entity camera>
+        <a-entity camera mouse-cursor>
 
         </a-entity>
         </a-scene>
     </body>
+    <script>
+      /*var en=document.querySelector('#thebox');
+      en.el.addEventListener('click', clickEvent);
+      function clickEvent(event){
+        console.log("getclick");
+        console.log(event.detail.intersection.point);
+      }*/
+    </script>
 </html>
