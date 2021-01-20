@@ -13,7 +13,7 @@
     
     <body style='margin : 0px; overflow: hidden;'>
         <!-- we add detectionMode and matrixCodeType to tell AR.js to recognize barcode markers -->
-        <a-scene embeded touch-handler
+        <a-scene embeded 
                   arjs='sourceType: webcam;'
                   raycaster="objects: .clickable"
                   emitevents="true"
@@ -22,7 +22,7 @@
                       
                       id="animated-marker">
 
-            <a-entity  id="thebox" class="clickable" geometry="primitive: box" material="color: blue"></a-entity>
+            <a-entity touch-handler id="thebox" class="clickable" geometry="primitive: box" material="color: blue"></a-entity>
             
         </a-marker>
 
