@@ -710,11 +710,11 @@
           el2.setAttribute('glmol__M2', data);
       }*/
        
-      
+      S1Tab = false;
     });
 
     $('#glmol02_reload').click(function(ev) {
-      $('#Setting').slideToggle("slow");
+      $('#Setting2').slideToggle("slow");
       var idHeader = "#glmol02_";
       data = {
         'color': $(idHeader + 'color').val(),
@@ -766,6 +766,7 @@
           console.log(newel2.getAttribute('rotation'));
         }
       }
+      S2Tab = false;
       /*if (M2show) {
           showMolId("#M2Tab","Setting...");
           el2.setAttribute('glmol__M2', data);
