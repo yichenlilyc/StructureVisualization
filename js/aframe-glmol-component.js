@@ -1,3 +1,5 @@
+
+
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -2139,9 +2141,13 @@ var GLmol = (function() {
 
 
 
-          this.modelGroup.position.x -= helper.geometry.boundingSphere.center.x;
+          /*this.modelGroup.position.x -= helper.geometry.boundingSphere.center.x;
           this.modelGroup.position.y -= helper.geometry.boundingSphere.center.y;
-          this.modelGroup.position.z -= helper.geometry.boundingSphere.center.z;
+          this.modelGroup.position.z -= helper.geometry.boundingSphere.center.z;*/
+          this.modelGroup.position.x = schema.pos.x;
+          this.modelGroup.position.y = schema.pos.y;
+          this.modelGroup.position.z = schema.pos.z;
+    
 //  this.modelGroup.scale.set(.1, .1 ,.1);
 
 
@@ -2205,6 +2211,7 @@ if (typeof AFRAME === 'undefined') {
  */
 AFRAME.registerComponent('glmol', {
   schema: {
+    pos:{type:'vec3'},
     width: {type: 'number', default: 1},
     height: {type: 'number', default: 1},
     depth: {type: 'number', default: 1},
@@ -2248,6 +2255,12 @@ AFRAME.registerComponent('glmol', {
 
   this.glmol.returnModelGroup().then(
   (modelGroup)=>{
+    // console.log("setx");
+    // console.log(schema.pos.x);
+    // console.log("sety");
+    // console.log(schema.pos.y);
+    // console.log("setz");
+    // console.log(schema.pos.z);
     this.el.setObject3D('mesh', modelGroup);
     //this.el.setAttribute('scale', `${1/this.glmol.largestSideLength} ${1/this.glmol.largestSideLength} ${1/this.glmol.largestSideLength}`);
 

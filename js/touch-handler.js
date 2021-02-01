@@ -17,10 +17,12 @@ AFRAME.registerComponent('touch-handler', {
         //console.log("false");
         //this.el.removeEventListener('click', this.clickEvent);
         });
-        this.el.addEventListener('click',this.clickEvent);
+        this.el.sceneEl.addEventListener('click',this.clickEvent);
         
         
     },
+
+   
 
     /*update: function(oldData){
         var data = this.data;

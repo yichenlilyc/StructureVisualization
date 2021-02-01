@@ -1,44 +1,1032 @@
-<!doctype HTML>
-<html>
-    <head>
-        <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-    </head>
-    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
-    <script src="https://rawgit.com/jeromeetienne/AR.js/master/aframe/build/aframe-ar.min.js"></script>
-    <script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
-    <script src="https://rawgit.com/mayognaise/aframe-mouse-cursor-component/master/dist/aframe-mouse-cursor-component.min.js"></script>
-    <script src="js/touch-handler.js"></script>
-    <script src="js/test.js"></script>
-    
-    
-    <body style='margin : 0px; overflow: hidden;'>
-        <!-- we add detectionMode and matrixCodeType to tell AR.js to recognize barcode markers -->
-        <a-scene embeded 
-                  arjs='sourceType: webcam;'
-                  raycaster="objects: .clickable"
-                  emitevents="true"
-                  cursor="fuse:false rayOrigin: mouse;">
-            <a-marker preset="hiro"
-                      
-                      id="animated-marker">
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-            <a-entity touch-handler id="thebox" class="clickable" geometry="primitive: box" material="color: blue"></a-entity>
-            
+    <title>Hello!</title>
+    
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <script src="aframe-glmol.js" ></script>
+    <script src="node_modules/jquery/dist/jquery.js" ></script>
+    <script src="node_modules/ar.js/aframe/build/aframe-ar.js"></script>
+    <script src="js/gestures.js"></script>
+    <script src="js/upload-model.js"></script>
+    <script src="js/config.js" ></script>
+    <script src="js/aframe-markertracker-componnet.js" ></script>
+  
+  </head>  
+  <style>
+    body{
+      margin:0;
+    }
+    .tabBox {
+      position: absolute;
+      padding: 1em;
+      color: orange;
+      bottom: 0px;
+      height: 10px;
+      width: 5px;
+      overflow: hidden;
+    }
+    button{
+      background-color: #e7e7e7;
+      border:none;
+      border-radius: 6px;
+      color: black;
+      height:23px;
+    }
+    h4{
+      color:cornflowerblue;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+    h5{
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+    p{
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+    .topTab{
+      position:absolute;
+      top:0px;
+      background-color: black;
+      border: 1.5px solid white;
+      border-radius: 6px;
+      text-align: center;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      font-weight: bold;
+      font-size: 12px;
+      float: left;
+      width: 55px;
+      height: 25px;
+      color: whitesmoke;
+    }
+    .subTab{
+      position:absolute;
+      background-color: black;
+      border-radius: 6px;
+      float:left;
+      width: 90px;
+      height: 50px;
+      color: whitesmoke;
+      display:none;
+    }
+    .subsubTab{
+      position:absolute;
+      background-color: black;
+      border-radius: 6px;
+      text-align: left;
+      border: 1.5px solid white;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      font-size: 12px;
+      float: left;
+      height: 25px;
+      width:100%;
+      color: whitesmoke;
+    }
+    .midTab{
+      position:absolute;
+      background-color:#e7e7e7;
+      border-radius: 6px;
+      text-align: center;
+      width: 40%;
+      height: 100%;
+      color: black;
+      
+    }
+    .insideTab {
+      background-color: black;
+      position:absolute;
+      float: left;
+      top: 35px;
+      padding: 30px;
+      border-radius: 6px;
+      display:none;
+      color:white;   
+      width: auto;
+      height: auto;
+      overflow: scroll;
+    }
+    .embededScene{
+      top: 0px;
+      overflow:scroll;
+    }
+    .embeded{
+      position: absolute;
+      top:100px;
+    }
+  </style>
+
+  <body>
+     
+    <div class="embededScene">
+
+      <a-scene embeded arjs
+        renderer="logarithmicDepthBuffer: true;"
+        vr-mode-ui="enabled: false"
+        gesture-detector
+        id="scene" >
+      
+        <a-marker 
+          preset="hiro"
+          raycaster="objects: .clickable"
+          emitevents="true"
+          cursor="fuse: false; rayOrigin: mouse;"
+          id="markerA" >
+
+          <!--<a-octahedron id="trackerA" radius="0.1" color="red" position="0 0 0"></a-octahedron>-->
+          <a-entity glmol id="glmol" id="browser-model" position="0 0 0"
+            scale="0.05 0.05 0.05" class="clickable" gesture-handler>
+          </a-entity>
+
+          <a-entity id="newglmol2" id="browser-model" position="0 0 0"
+            scale="0.05 0.05 0.05" class="clickable" gesture-handler>
+          </a-entity>
+
+        </a-marker>
+        
+
+        <a-marker 
+          preset="kanji"
+          raycaster="objects: .clickable"
+          emitevents="true"
+          cursor="fuse: false; rayOrigin: mouse;"
+          id="markerB" >
+       
+          <!--<a-octahedron id="trackerB" radius="0.1" color="blue" position="0 0 0"></a-octahedron>-->
+          <a-entity id="glmol2" id="browser-model" position="0 0 0"
+             scale="0.05 0.05 0.05" class="clickable" gesture-handler>
+          </a-entity>
+
         </a-marker>
 
-        
-        <!-- use this <a-entity camera> to support multiple-markers, otherwise use <a-marker-camera> instead of </a-marker> -->
-        <a-entity camera mouse-cursor>
+        <a-entity camera id="camera"></a-entity>
 
-        </a-entity>
-        </a-scene>
-    </body>
-    <script>
-      /*var en=document.querySelector('#thebox');
-      en.el.addEventListener('click', clickEvent);
-      function clickEvent(event){
-        console.log("getclick");
-        console.log(event.detail.intersection.point);
+      </a-scene>
+
+    </div>
+    <div class="topTab" id="ModelTab" style="left: 1px;">
+      Models 
+    </div> 
+    <div class="subTab" id="MsubTab" style="left:1px;top:28px;">
+      <div class="subsubTab" id="LoadObjectTab" style="top:0px">
+        Model 1:
+        <div class="midTab" id="M1Tab" preval="1BL8" style="top:0px;left: 60%;">
+          M1 Loading...
+        </div> 
+      </div> 
+      <div class="subsubTab" id="LoadObjectTab2" style="top:25px">
+        Model 2:
+        <div class="midTab" id="M2Tab" preval2="1MPO" style="top:0px;left: 60%;">
+          Off
+        </div> 
+      </div>
+    </div> 
+
+    <div class="topTab" id="SettingTab" style="left:57px;">
+      Settings
+    </div>
+ 
+    <div class="subTab" id="SsubTab" style="left:57px;top:28px;height: 100px;width: 100px;">
+      <div class="subsubTab" id="LoadSetting" style="top:0px">
+        Model 1
+      </div> 
+      <div class="subsubTab" id="LoadSetting2" style="top:25px">
+        Model 2
+      </div>
+      <div class="subsubTab" id="combine" style="top: 50px;left: 0px;">
+        combine M1&M2
+      </div>
+      <div class="subsubTab" id="split" style="top: 75px;left: 0px;">
+        split M1&M2
+      </div>
+    </div> 
+    
+
+    <!--<div class="topTab" id="LoadObjectTab" style="left: 1%;">
+      LoadM1: 
+    </div> -->
+    <!--<div class="midTab" id="M1Tab" preval="1BL8" style="left: 19%;">
+      M1 Loading...
+    </div> -->
+    <!--<div class="topTab" id="LoadObjectTab2" style="left: 31%;">
+      LoadM2:
+    </div> 
+    <div class="midTab" id="M2Tab" preval2="1MPO" style="left: 49%;">
+      Off
+    </div> -->
+    <div class="topTab" id="upLoadModelTab" style="left:114px;">
+      Upload
+    </div> 
+
+
+
+    <!-- <div class="bottomTab" id="LoadingTab" >
+      Loading...
+    </div> -->
+
+    <div class="insideTab" id="LoadObject" style="top:28px;left: 1px;">
+    <p id="back"><-- back</p>
+    <h4> Load Model 1: </h4>
+      <h5>Load from RCSB:</h5>
+      <div id="idOne" style="font-size:12px;font-family: Verdana, Geneva, Tahoma, sans-serif;">Input PDB ID :</div>
+      <input class="txtbox" id="glmol01_pdb" value="1BL8" size=6> ==========>
+      <button class="buttons" onClick="loadshow('pdb:' + $('#glmol01_pdb').val(),1)">
+        Load M1
+      </button>
+      <h5>Load from cloud:</h5>
+      <div id="IDwpi1" style="font-size:12px;font-family: Verdana, Geneva, Tahoma, sans-serif;">Input model name:</div>
+      <input class="txtbox" id="fn1" value="2POR" size=2> -
+      <input class="txtbox" id="fn2" value="yli21" size=2> -
+      <input class="txtbox" id="fn3" value="1" size=1>=====>
+      <button class="buttons" onClick="loadshow('wpi:' + $('#fn1').val() + '-' + $('#fn2').val() + '-' + $('#fn3').val(),1)">
+        Load M1
+      </button>
+      <!-- <br />
+      <br />
+      <button onClick="download(ModelUrl)">
+        Select From WPI and download to local
+      </button> -->
+
+      <!--<h5 id="IDloc1">From your local disk load :</h5>
+      <button onClick="loadLocalModel(1)">
+        Select File from Local 
+      </button>
+      <br />-->
+      <h5>Load from input text:</h5>
+      <textarea wrap="off" id="glmol01_src" style="width: 100%; height: 8em; overflow: scroll;"></textarea>
+      <br />
+      <input id="glmol01_text" type="file" size=1>
+      <br />
+      <button onClick="loadFile(1)">
+        Load text from file
+      </button>=====>
+      <button onClick="showModel(1)">
+        Load M1
+      </button>
+    </div>
+
+    <div class="insideTab" id="LoadObject2" style="top:28px;left:1px">
+      <p id="back2"><-- back</p>
+      <h4> Load Model 2: </h4>
+      <h5>Load from RCSB:</h5>
+      <div id="idTwo" style="font-size:12px;font-family: Verdana, Geneva, Tahoma, sans-serif;">PDB ID:</div>
+      <input class="txtbox2" id="glmol01_pdb_2" value="1MPO" size=6> ======>
+      <button class="buttons" onClick="loadshow('pdb:' + $('#glmol01_pdb_2').val(),2)">
+        Load M2
+      </button>
+      <h5>Load from cloud:</h5>
+      <div id="IDwpi2" style="font-size:12px;font-family: Verdana, Geneva, Tahoma, sans-serif;">Input model name:</div>
+      <input class="txtbox" id="m2fn1" value="2POR" size=2> -
+      <input class="txtbox" id="m2fn2" value="yli21" size=2> -
+      <input class="txtbox" id="m2fn3" value="1" size=1>=>
+      <button class="buttons" onClick="loadshow('wpi:' + $('#m2fn1').val() + '-' + $('#m2fn2').val() + '-' + $('#m2fn3').val(),2)">
+        Load M2
+      </button>
+      <!-- <br />
+      <br />
+      <button onClick="download(ModelUrl)">
+        Select From WPI and download to local
+      </button> -->
+      
+      <!-- <h5id="IDloc2">From your local disk load :</h5>
+        <button onClick="loadLocalModel(2)">
+          Select File from Local 
+        </button> -->
+      <h5>Load from input text:</h5>
+      <textarea wrap="off" id="glmol02_src" style="width: 100%; height: 8em; overflow: scroll;"></textarea>
+      <br />
+      <input id="glmol02_text" type="file" size=1>
+      <br />
+      <button onClick="loadFile(2)">
+        Load text from file
+      </button>=====>
+      <button onClick="showModel(2)">
+        Load M2
+      </button>
+    </div>
+
+    <div class="insideTab" id="upLoadModel" style="top:28px;left:114px;">
+        <button onClick="uploadModelFile('select')">
+          select model file
+        </button>：<span class="upmfn" id="upmfn" > </span>
+        <br />
+        <br />
+        <div id="rename">Wrong model name!
+        <div>Rename :</div>
+        <input class="txtbox" id="upmfn1" value=" " size=4> -
+        <input class="txtbox" id="upmfn2" value=" " size=4> -
+        <input class="txtbox" id="upmfn3" value=" " size=2>
+        <div>ModelID - username - serial</div>
+        <br />
+        <br />
+        <!-- <button onClick="uploadModelFile('upload', $('#upmfn1').val() + '-' + $('#upmfn2').val() + '-' + $('#upmfn3').val())"> -->
+        <button  id = "upclick ">
+          Upload model file
+        </button>
+      </div>
+    </div>    
+    <div class="insideTab" id="Setting" style="top:28px;left:57px;">
+      <p id="backs"><-- back</p>
+      <h4>Model 1 Setting:</h4>
+      Color by
+      <select id="glmol01_color">
+        <option selected="selected" value="chainbow">spectrum</option>
+        <option value="chain">chain</option>
+        <option value="elements">elements/CPK</option>
+        <option value="ss">secondary structure</option>
+        <option value="b">B factor</option>
+        <option value="polarity">polar/nonpolar</option>
+        
+      </select>
+      <br>
+      <input id="glmol01_showMainchain" type="checkbox" checked>
+      Main chain as
+      <select id="glmol01_mainchain">
+        <option selected="selected" value="ribbon">ribbon</option>
+        <!--<option value="thickRibbon">thick ribbon</option>-->
+        <!--<option value="strand">strand</option>-->
+        <!--<option value="cylinderHelix">cylinder & plate</option>-->
+        <option value="chain">C alpha trace</option>
+        <option value="tube">B factor Tube</option>
+        <option value="bonds">bonds (everything)</option>
+        <option value="spacefill">space fill</option>
+        <option value="ballAndStick">ball and stick</option>
+      </select>
+      <br>
+      <input id="glmol01_showBases" type="checkbox" checked>
+      Nucleic acid bases as
+      <select id="glmol01_base">
+        <option value="nuclStick">sticks</option>
+        <option selected="selected" value="nuclLine">lines</option>
+        <option value="nuclPolygon">polygons</option>
+      </select>
+      <br>
+      <input id="glmol01_line" type="checkbox">
+      Side chains as lines
+      <br>
+      <input id="glmol01_doNotSmoothen" type="checkbox">
+      Don't smooth beta-sheets in ribbons
+      <br>
+      <input id="glmol01_showNonBonded" type="checkbox">
+      Non-bonded atoms (solvent/ions) as
+      <select id="glmol01_nb">
+        <option value="nb_sphere">spheres</option>
+        <option selected="selected" value="nb_cross">stars</option>
+      </select>
+      <br>
+      <input id="glmol01_showHetatms" type="checkbox" checked>
+      Small molecules(HETATMs) as
+      <select id="glmol01_hetatm">
+        <option value="stick">sticks</option>
+        <option value="ballAndStick">ball and stick</option>
+        <option value="ballAndStick2">ball and stick (multiple bond)</option>
+        <option selected="selected" value="sphere">spheres</option>
+        <option value="icosahedron">icosahedrons</option>
+        <option value="line">lines</option>
+      </select>
+      <br>
+      Multiple bond option is for SDF/MOL file ONLY.
+      <br>
+      <input id="glmol01_cell" type="checkbox">
+      Unit cell
+      <br>
+      <input id="glmol01_biomt" type="checkbox">
+      Biological assembly (the last one defined)
+      <br>
+      <input id="glmol01_packing" type="checkbox">
+      Crystal packing
+      <br>
+      <input id="glmol01_symopHetatms" type="checkbox">
+      Show HETATMs in symmetry mates (slower)
+      <br>
+      <br>
+      <button id="glmol01_reload">
+        Apply
+      </button>
+    </div>
+
+    <div class="insideTab" id="Setting2" style="top:28px;left:57px;">
+      <p id="backs2"><-- back</p>
+      <h4>Model 2 Setting:</h4>
+      Color by
+      <select id="glmol02_color">
+        <option selected="selected" value="chainbow">spectrum</option>
+        <option value="chain">chain</option>
+        <option value="elements">elements/CPK</option>
+        <option value="ss">secondary structure</option>
+        <option value="b">B factor</option>
+        <option value="polarity">polar/nonpolar</option>
+        
+      </select>
+      <br>
+      <input id="glmol02_showMainchain" type="checkbox" checked>
+      Main chain as
+      <select id="glmol02_mainchain">
+        <option selected="selected" value="ribbon">ribbon</option>
+        <!--<option value="thickRibbon">thick ribbon</option>-->
+        <!--<option value="strand">strand</option>-->
+        <!--<option value="cylinderHelix">cylinder & plate</option>-->
+        <option value="chain">C alpha trace</option>
+        <option value="tube">B factor Tube</option>
+        <option value="bonds">bonds (everything)</option>
+        <option value="spacefill">space fill</option>
+        <option value="ballAndStick">ball and stick</option>
+      </select>
+      <br>
+      <input id="glmol02_showBases" type="checkbox" checked>
+      Nucleic acid bases as
+      <select id="glmol02_base">
+        <option value="nuclStick">sticks</option>
+        <option selected="selected" value="nuclLine">lines</option>
+        <option value="nuclPolygon">polygons</option>
+      </select>
+      <br>
+      <input id="glmol02_line" type="checkbox">
+      Side chains as lines
+      <br>
+      <input id="glmol02_doNotSmoothen" type="checkbox">
+      Don't smooth beta-sheets in ribbons
+      <br>
+      <input id="glmol02_showNonBonded" type="checkbox">
+      Non-bonded atoms (solvent/ions) as
+      <select id="glmol02_nb">
+        <option value="nb_sphere">spheres</option>
+        <option selected="selected" value="nb_cross">stars</option>
+      </select>
+      <br>
+      <input id="glmol02_showHetatms" type="checkbox" checked>
+      Small molecules(HETATMs) as
+      <select id="glmol02_hetatm">
+        <option value="stick">sticks</option>
+        <option value="ballAndStick">ball and stick</option>
+        <option value="ballAndStick2">ball and stick (multiple bond)</option>
+        <option selected="selected" value="sphere">spheres</option>
+        <option value="icosahedron">icosahedrons</option>
+        <option value="line">lines</option>
+      </select>
+      <br>
+      Multiple bond option is for SDF/MOL file ONLY.
+      <br>
+      <input id="glmol02_cell" type="checkbox">
+      Unit cell
+      <br>
+      <input id="glmol02_biomt" type="checkbox">
+      Biological assembly (the last one defined)
+      <br>
+      <input id="glmol02_packing" type="checkbox">
+      Crystal packing
+      <br>
+      <input id="glmol02_symopHetatms" type="checkbox">
+      Show HETATMs in symmetry mates (slower)
+      <br>
+      <br>
+      <button id="glmol02_reload">
+        Apply
+      </button>
+    </div>
+
+  </body>
+
+  <script>
+
+    var el1 = document.querySelector('#glmol');
+    var el2 = document.querySelector('#glmol2');
+    var newel2 = document.querySelector('#newglmol2');
+    var elM1 = document.querySelector('#M1Tab');
+    var elM2 = document.querySelector('#M2Tab');
+    var elTracker1 = document.querySelector('#markerA');
+    var elTracker2 = document.querySelector('#markerB');
+    var elCam = document.querySelector('#camera');
+    var loadM1Tab=false;
+    var loadM2Tab=false;
+    var S1Tab=false;
+    var S2Tab=false;
+    var M1show = true;
+    var M2show = false;
+    var isCombine = false;
+    var no=0;
+    var curoutpos;
+
+    
+    $('#rename').hide();
+ 
+    if (M1show) {
+          el1.addEventListener('loaded', () => {
+              showMolId("#M1Tab",el1.getAttribute('glmol').molId.substr(4,4).toUpperCase());
+          });
+    }
+
+    $('#ModelTab').click(function(){
+      $('#MsubTab').slideToggle("slow");
+      if(loadM1Tab){
+        $('#LoadObject').slideToggle("slow");
+        loadM1Tab=false;
+      }
+      if(loadM2Tab){
+        $('#LoadObject2').slideToggle("slow");
+        loadM2Tab=false;
+      }
+      
+    });
+
+    $('#SettingTab').click(function(){
+      $('#SsubTab').slideToggle("slow");
+      if(S1Tab){
+        $('#Setting').slideToggle("slow");
+        S1Tab=false;
+      }
+      if(S2Tab){
+        $('#Setting2').slideToggle("slow");
+        S2Tab=false;
+      }
+      
+    });
+
+    $('#LoadObjectTab').click(function(){
+      if (M1show){
+        $('#LoadObject').slideToggle("slow");
+        loadM1Tab = true;
+      }
+    });
+
+    $('#LoadObjectTab2').click(function(){
+      if (M2show){
+        $('#LoadObject2').slideToggle("slow");
+        loadM2Tab = true;
+      }
+    });
+
+    $('#LoadSetting').click(function(){
+      if (M1show){
+        $('#Setting').slideToggle("slow");
+        S1Tab = true;
+      } else{
+        alert("Please load Model 1 first");
+      }
+    });
+
+    $('#LoadSetting2').click(function(){
+      if (M2show){
+        $('#Setting2').slideToggle("slow");
+        S2Tab = true;
+      }else{
+        alert("Please load Model 2 first")
+      }
+    });
+
+    $('#back').click(function(){
+      if(loadM1Tab){
+        $('#LoadObject').slideToggle("slow");
+        loadM1Tab = false;
+      }
+      
+    });
+
+    $('#back2').click(function(){
+      if(loadM2Tab){
+        $('#LoadObject2').slideToggle("slow");
+        loadM2Tab = false;
+      }
+      
+    });
+    $('#backs').click(function(){
+      if(S1Tab){
+        $('#Setting').slideToggle("slow");
+        S1Tab = false;
+      }
+      
+    });
+
+    $('#backs2').click(function(){
+      if(S2Tab){
+        $('#Setting2').slideToggle("slow");
+        S2Tab = false;
+      }
+      
+    });
+
+    $('#upLoadModelTab').click(function(){
+      $('#upLoadModel').slideToggle("slow");
+    });
+
+
+    $('#M1Tab').click(function(){
+      if (!M1show) {
+          premolID = "pdb:" + elM1.getAttribute('preval');
+          showMolId("#M1Tab","Loading...");
+          el1.addEventListener('loaded', () => {
+            showMolId("#M1Tab",el1.getAttribute('glmol').molId.substr(4,4).toUpperCase());
+          });
+          el1.setAttribute('glmol', {'molId': premolID});
+          M1show = true;
+      } else {
+          premolID = el1.getAttribute('glmol').molId;
+          elM1.setAttribute('preval', premolID.substr(4,4).toUpperCase());
+          split();
+          el1.removeAttribute('glmol');
+          showMolId("#M1Tab","Off");
+          M1show = false;
+      }
+    });
+
+    $('#M2Tab').click(function(){
+      if (!M2show) {
+          premolID2 = "pdb:" + elM2.getAttribute('preval2');
+          showMolId("#M2Tab","Loading...");
+          el2.addEventListener('loaded', () => {
+            showMolId("#M2Tab",el2.getAttribute('glmol__M2').molId.substr(4,4).toUpperCase());
+          });
+          el2.setAttribute('glmol__M2', {'molId': premolID2});
+          
+          M2show = true;
+      } else {
+          premolID2 = el2.getAttribute('glmol__M2').molId;
+          elM2.setAttribute('preval2', premolID2.substr(4,4).toUpperCase());
+          split();
+          el2.removeAttribute('glmol__M2');
+          showMolId("#M2Tab","Off");
+          M2show = false;
+      }
+    });
+
+    $('#glmol01_reload').click(function(ev) {
+      $('#Setting').slideToggle("slow");
+      var idHeader = "#glmol01_";
+      data = {
+        'color': $(idHeader + 'color').val(),
+        'mainchain': $(idHeader + 'showMainchain').is(':checked') ? $(idHeader + 'mainchain').val() : 'none',
+        'base': $(idHeader + 'showBases').is(':checked') ? $(idHeader + 'base').val() : 'none',
+        'line': $(idHeader + 'line').is(':checked'),
+        'doNotSmoothen': $(idHeader + 'doNotSmoothen').is(':checked'),
+        'nb': $(idHeader + 'showNonBonded').is(':checked') ? $(idHeader + 'nb').val() : 'none',
+        'hetatmMode': $(idHeader + 'showHetatms').is(':checked') ? $(idHeader + 'hetatm').val() : 'none',
+        'cell': $(idHeader + 'cell').is(':checked'),
+        'biomt': $(idHeader + 'biomt').is(':checked'),
+        'packing': $(idHeader + 'packing').is(':checked'),
+        'symopHetatms': $(idHeader + 'symopHetatms').is(':checked')
+      };
+    
+      
+      // for (i in data) {
+      //   var currentAttribute = data[i];
+      //   if (M1show) {
+      //       showMolId("#M1Tab","Setting...");
+      //       el1.setAttribute('glmol', i, currentAttribute);
+      //   }
+      //   if (M2show) {
+      //       showMolId("#M2Tab","Setting...");
+      //       el2.setAttribute('glmol__M2', i, currentAttribute);
+      //   }
+      // }
+  
+      if (M1show) {
+          showMolId("#M1Tab","Setting...");
+          el1.setAttribute('glmol', data);
+          curoutpos = el1.getAttribute('glmol').outpos;
+          curdata = {
+            'inpos':curoutpos
+          }
+          if(!isCombine){
+            
+          }
+          if(isCombine){
+            var newpos = el1.getAttribute('glmol').outpos;
+            
+            console.log(newpos);
+
+            if(newel2.getAttribute('glmol__M3')!=null){
+              data2 = {
+                'inpos':newpos
+              };
+              newel2.setAttribute('glmol__M3',data2);
+            }
+            //
+            console.log("changesettingnewel2");
+            
+            console.log(newel2.getAttribute('glmol__M3').pos);
+            console.log(newel2.getAttribute('position'));
+            console.log(newel2.getAttribute('rotation'));
+          }
+
+      }
+      /*if (M2show) {
+          showMolId("#M2Tab","Setting...");
+          el2.setAttribute('glmol__M2', data);
       }*/
-    </script>
+       
+      
+    });
+
+    $('#glmol02_reload').click(function(ev) {
+      $('#Setting').slideToggle("slow");
+      var idHeader = "#glmol02_";
+      data = {
+        'color': $(idHeader + 'color').val(),
+        'mainchain': $(idHeader + 'showMainchain').is(':checked') ? $(idHeader + 'mainchain').val() : 'none',
+        'base': $(idHeader + 'showBases').is(':checked') ? $(idHeader + 'base').val() : 'none',
+        'line': $(idHeader + 'line').is(':checked'),
+        'doNotSmoothen': $(idHeader + 'doNotSmoothen').is(':checked'),
+        'nb': $(idHeader + 'showNonBonded').is(':checked') ? $(idHeader + 'nb').val() : 'none',
+        'hetatmMode': $(idHeader + 'showHetatms').is(':checked') ? $(idHeader + 'hetatm').val() : 'none',
+        'cell': $(idHeader + 'cell').is(':checked'),
+        'biomt': $(idHeader + 'biomt').is(':checked'),
+        'packing': $(idHeader + 'packing').is(':checked'),
+        'symopHetatms': $(idHeader + 'symopHetatms').is(':checked')
+      };
+    
+      
+      // for (i in data) {
+      //   var currentAttribute = data[i];
+      //   if (M1show) {
+      //       showMolId("#M1Tab","Setting...");
+      //       el1.setAttribute('glmol', i, currentAttribute);
+      //   }
+      //   if (M2show) {
+      //       showMolId("#M2Tab","Setting...");
+      //       el2.setAttribute('glmol__M2', i, currentAttribute);
+      //   }
+      // }
+  
+      if (M2show) {
+        showMolId("#M2Tab","Setting...");
+        if(!isCombine){
+          el2.setAttribute('glmol__M2', data);
+        }else{
+          newel2.setAttribute('glmol__M3',data);
+
+          var newpos = newel2.getAttribute('glmol__M3').outpos;
+        
+          console.log(newpos);
+    
+          data2 = {
+            'inpos':newpos
+          };
+          el1.setAttribute('glmol',data2);
+
+          console.log("changesettingnewel2");
+          
+          console.log(newel2.getAttribute('glmol__M3').pos);
+          console.log(newel2.getAttribute('position'));
+          console.log(newel2.getAttribute('rotation'));
+        }
+      }
+      /*if (M2show) {
+          showMolId("#M2Tab","Setting...");
+          el2.setAttribute('glmol__M2', data);
+      }*/
+       
+      
+    });
+
+    $('#combine').click(function(ev){
+      /*var xpos = elTracker1.getAttribute('position').x-elTracker2.getAttribute('position').x;
+      var ypos = elTracker1.getAttribute('position').y-elTracker2.getAttribute('position').y;
+      var zpos = elTracker1.getAttribute('position').z-elTracker2.getAttribute('position').z;
+      var xrot = elTracker1.getAttribute('rotation').x-elTracker2.getAttribute('rotation').x;
+      var yrot = elTracker1.getAttribute('rotation').y-elTracker2.getAttribute('rotation').y;
+      var zrot = elTracker1.getAttribute('rotation').z-elTracker2.getAttribute('rotation').z;
+      //console.log(elTracker1.getAttribute('rotation'));
+      //console.log(elTracker2.getAttribute('rotation'));
+      console.log(xrot);
+      console.log(yrot);
+      console.log(zrot);
+
+      el1.setAttribute('position',{x:xpos/2*(-1),y:ypos/2*(-1),z:zpos/2*(-1)});
+      el2.setAttribute('position',{x:xpos/2,y:ypos/2,z:zpos/2});
+      el1.setAttribute('rotation',{x:xrot/2,y:yrot/2,z:zrot/2});
+      el2.setAttribute('rotation',{x:xrot/2,y:yrot/2,z:zrot/2});
+      //console.log(elTracker2.getAttribute('position'));
+
+      console.log(el1.getAttribute('rotation'));
+      console.log(el2.getAttribute('rotation'));*/
+      if(M1show&&M2show){
+        if(!isCombine){
+          var el2Attr = el2.getAttribute('glmol__M2');
+          var el1Outpos = el1.getAttribute('glmol').outpos;
+          console.log(el2Attr);
+          if(el2Attr!==null){
+            el2.removeAttribute('glmol__M2')
+            newel2.setAttribute('glmol__M3',el2Attr);
+            var el1scale = el1.getAttribute('scale');
+            newel2.setAttribute('scale',el1scale);
+            isCombine=true;
+            //newel2.setAttribute('position',el1.getAttribute('position'));
+            //newel2.setAttribute('rotation',el1.getAttribute('rotation'));
+            console.log("el1scale");
+            
+            console.log(el1.getAttribute('scale'));
+            console.log("el2scale");
+            console.log(newel2.getAttribute('scale'));
+            console.log(newel2.getAttribute('position'));
+            console.log(newel2.getAttribute('rotation'));
+          }
+        }
+      }else if(!M1show){
+        alert("Please load Model 1 first");
+      }else if(!M2show){
+        alert("Please load Model 2 first");
+      } 
+    });
+
+    $('#split').click(function(ev){
+      split();
+    });
+
+    function split(){
+      if(isCombine){
+        var newel2Attr = newel2.getAttribute('glmol__M3');
+        console.log(newel2Attr);
+        if(newel2Attr!==null){
+          newel2.removeAttribute('glmol__M3')
+          el2.setAttribute('glmol__M2',newel2Attr);
+          // splitdata = {
+          //   'inpos':'0 0 0'
+          // }
+          // el2.setAttribute('glmol__M2',splitdata);
+          // el1.setAttribute('glmol',splitdata);
+          isCombine=false;
+          console.log("split")
+          console.log(isCombine);
+          //newel2.setAttribute('position',el1.getAttribute('position'));
+          //newel2.setAttribute('rotation',el1.getAttribute('rotation'));
+          
+          console.log(newel2.getAttribute('scale'));
+          console.log(newel2.getAttribute('position'));
+          console.log(newel2.getAttribute('rotation'));
+        }
+      }
+    }
+
+    function loadLocalModel(mn) {
+      query = "lof:" + "localfilename" + Math.floor((Math.random()*100)+1);
+      loadshow(query,mn);
+    }
+
+    function loadFrom(type,mn) {
+      let input = document.createElement("input");
+      input.type = "file";
+      input.click();
+      input.onchange = function(){
+         let file = input.files[0];
+         if (!file) {
+              alert("No file is selected.");
+              return;
+          }
+      }
+      $('#loading').show();
+      query = type + file.name;
+      loadshow(query,mn);
+      $('#loading').hide();
+    }
+
+    function loadFile(mn) {
+      var file;
+      if(mn===1){
+        file = $('#glmol01_text').get(0);
+      } else if(mn===2){
+        file = $('#glmol02_text').get(0);
+      }
+      
+      if (file)
+        file = file.files;
+      if (!file || !window.FileReader || !file[0]) {
+        alert("No file is selected. Or File API is not supported in your browser. Please try Firefox or Chrome.");
+        return;
+      }
+      else{
+
+      }
+      $('#loading').show();
+      var reader = new FileReader();
+      reader.fileName = file[0].name;
+      var filename;
+      filename = file[0].name;
+      var name = filename.substr(0,4);
+      reader.onload = function(event) {
+        if(mn===1){
+          file = $('#glmol01_src').val(reader.result);
+        } else if(mn===2){
+          file = $('#glmol02_src').val(reader.result);
+        }
+        //$('#glmol01_src').val(reader.result);
+        
+        //filename=reader.result;
+        //test(name);
+        //el1.loadMoleculeStr(event.target.result);
+        
+        $('#loading').hide();
+      };
+      reader.readAsText(file[0]);
+    }
+
+    function showModel(mn){
+      no+=1;
+      var str;
+      if(mn===1){
+        str = $('#glmol01_src').val()
+        data={
+            'molId':"lot:"+str.slice(62,66)+no.toString(),
+            'pdb':$('#glmol01_src').val()
+        }
+        console.log(data);
+        el1.setAttribute('glmol', data);
+        var scale1 = el1.getAttribute('scale');
+        if(scale1.x<0.04){
+          el1.setAttribute('scale',{x:0.05,y:0.05,z:0.05});
+        }
+        console.log("scale11111");
+        console.log(el1.getAttribute('glmol'));
+      }
+      else if(mn===2){
+        str = $('#glmol02_src').val()
+        if(isCombine){
+          data={
+            'molId':"lot:"+str.slice(62,66)+no.toString(),
+            'pdb':$('#glmol02_src').val()
+          }
+          newel2.setAttribute('glmol__M3', data);
+          var scale22 = newel2.getAttribute('scale');
+          if(scale22.x<0.04){
+            newel2.setAttribute('scale',{x:0.05,y:0.05,z:0.05});
+          }
+        }else{
+          data={
+            'molId':"lot:"+str.slice(62,66)+no.toString(),
+            'pdb':$('#glmol02_src').val()
+          }
+          el2.setAttribute('glmol__M2', data);
+          var scale2 = el2.getAttribute('scale');
+          if(scale2.x<0.04){
+            el2.setAttribute('scale',{x:0.05,y:0.05,z:0.05});
+          }
+        }
+        
+      }
+    }
+
+    function loadshow(query,mn){
+      data = {
+        'molId': query
+      };
+      if (mn == 1) {
+          M1show = true;
+          $('#LoadObject').slideToggle("slow");
+          loadM1Tab=false;
+          showMolId("#M1Tab","Loading...");
+          el1.setAttribute('glmol', data);
+      } else {
+          M2show = true;
+          $('#LoadObject2').slideToggle("slow");
+          loadM2Tab=false;
+          showMolId("#M2Tab","Loading...");
+          el2.setAttribute('glmol__M2', data);
+      }
+    }
+
+    function uploadModelFile(option) {
+      let opt = {};
+      opt.filter = "pdb";
+      opt.maxsize = 10;
+      opt.action = UploadAction;  
+      opt.startCallback = (file)=>{
+          console.log("Start upload!", file);  
+      }
+      opt.progressCallback = (object)=>{
+          if(object.computable){
+              console.log(
+                  "Uploading...", 
+                  "Speed：" + object.speed, 
+                  "uploaded " + Math.round(object.progress*100)+"%"
+          )}
+      }
+      opt.successCallback = (data)=>{
+          console.log("Uplod Success!", data);  
+      }
+      opt.errorCallback = (data)=>{
+          console.log("Error!", data);  
+      }
+      setOption(opt);
+      select();
+       
+    }
+
+
+     
+    function showMolId(selstr,molId) {
+       $(selstr).html(molId);
+      // $(selstr).innerHTML= molId;
+    }
+
+    function download(href, filename='')  {
+      const a = document.createElement('a')
+      a.download = filename
+      a.href = href
+      document.body.appendChild(a)  
+      a.click()
+      a.remove()
+    }
+
+  </script>
 </html>

@@ -19,7 +19,10 @@
   "homepage": "https://github.com/yichenlilyc/StructureVisualization#readme",
   "dependencies": {
     "aframe": "^1.1.0",
+    "ar.js": "^2.2.2",
+    "ar.js-modular": "^1.0.1",
     "formidable": "^1.2.2",
+    "jquery": "^3.5.1",
     "koa": "^2.0.0",
     "ngl": "^0.10.4"
   }
