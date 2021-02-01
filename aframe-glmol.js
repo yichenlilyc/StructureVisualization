@@ -2204,7 +2204,7 @@
         width: {type: 'number', default: 1},
         height: {type: 'number', default: 1},
         depth: {type: 'number', default: 1},
-        color: {type: 'color', default: '#AAA'},
+        //color: {type: 'color', default: '#AAA'},
         molId: {type: 'string', default: 'pdb:1BL8'},
         color: {type: 'string', default: 'chainbow'}, //Color by: chainbow, chain, ss, b, polarity
         mainchain: {type: 'string', default: 'ribbon'}, //Main chain as: thickRibbon, ribbon, strand, cylinderHelix, chain, tube, bonds, none
@@ -2265,12 +2265,12 @@
             this.glmol.defineRepresentation();
             this.el.emit("loaded");
 
-            console.log("setxyz");
+            //console.log("setxyz");
                     
             this.data.outpos.x=this.glmol.modelGroup.position.x;
             this.data.outpos.y=this.glmol.modelGroup.position.y;
             this.data.outpos.z=this.glmol.modelGroup.position.z;
-            console.log(this.data.pos);
+            //console.log(this.data.pos);
         }
         
       },

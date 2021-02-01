@@ -510,7 +510,7 @@
     var M2show = false;
     var isCombine = false;
     var no=0;
-    var curoutpos;
+    var curoutpos = {x:0,y:0,z:0};
 
     
     $('#rename').hide();
@@ -688,17 +688,8 @@
           showMolId("#M1Tab","Setting...");
           el1.setAttribute('glmol', data);
           curoutpos = el1.getAttribute('glmol').outpos;
-          curdata = {
-            'inpos':curoutpos
-          }
-          if(!isCombine){
-            
-          }
+          console.log(curoutpos);
           if(isCombine){
-            var newpos = el1.getAttribute('glmol').outpos;
-            
-            console.log(newpos);
-
             if(newel2.getAttribute('glmol__M3')!=null){
               data2 = {
                 'inpos':newpos
@@ -808,6 +799,7 @@
         if(!isCombine){
           var el2Attr = el2.getAttribute('glmol__M2');
           var el1Outpos = el1.getAttribute('glmol').outpos;
+          el2Attr.inpos = curoutpos;
           console.log(el2Attr);
           if(el2Attr!==null){
             el2.removeAttribute('glmol__M2')
